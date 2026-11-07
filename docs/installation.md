@@ -5,6 +5,7 @@
 Install these projects through HACS (Frontend):
 
 - [Mushroom](https://github.com/piitaya/lovelace-mushroom)
+- [button-card](https://github.com/custom-cards/button-card) — circular live light-brightness ring
 - [layout-card](https://github.com/thomasloven/lovelace-layout-card)
 - [card-mod](https://github.com/thomasloven/lovelace-card-mod)
 - [mini-graph-card](https://github.com/kalkih/mini-graph-card)
