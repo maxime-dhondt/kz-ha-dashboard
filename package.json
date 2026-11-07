@@ -1,6 +1,6 @@
 {
   "name": "glass-home-dashboard",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Apple-style glass dashboard for Home Assistant: configurable Lovelace custom cards.",
   "type": "module",
   "license": "MIT",

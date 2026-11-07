@@ -2,6 +2,7 @@ import { css, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { runAction } from '../../shared/actions';
 import { GlassCard } from '../../shared/base-card';
+import { resolveColor } from '../../shared/colors';
 import { domainOf, findEntity } from '../../shared/entities';
 import { Press } from '../../shared/press';
 import { registerCard } from '../../shared/register';
@@ -198,7 +199,9 @@ export class GlassModesCard extends GlassCard<ModesConfig> {
             @pointercancel=${press.cancel}
             @keydown=${press.key}
           >
-            <span class="bubble" style=${mode.color ? `--bubble:${mode.color}` : ''}
+            <span
+              class="bubble"
+              style=${mode.color ? `--bubble:${resolveColor(mode.color) ?? ''}` : ''}
               ><ha-icon .icon=${mode.icon}></ha-icon
             ></span>
             <span class="text">
@@ -212,7 +215,7 @@ export class GlassModesCard extends GlassCard<ModesConfig> {
   }
 
   public getGridOptions() {
-    return { columns: 12, rows: 1 };
+    return { columns: 12, rows: 2, min_columns: 6, min_rows: 1 };
   }
 }
 

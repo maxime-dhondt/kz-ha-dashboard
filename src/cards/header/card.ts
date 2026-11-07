@@ -340,7 +340,7 @@ export class GlassHeaderCard extends GlassCard<HeaderConfig> {
   }
 
   public getGridOptions() {
-    return { columns: 12, rows: 2 };
+    return { columns: 12, rows: 2, min_columns: 6, min_rows: 1 };
   }
 }
 

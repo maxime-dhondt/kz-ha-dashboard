@@ -8,7 +8,7 @@ import { bucketize, fetchHistory } from '../../shared/history';
 import { registerCard } from '../../shared/register';
 import { glass, tokens } from '../../shared/styles';
 import { cardHead, missingEntity } from '../../shared/templates';
-import type { GlassCardConfig, HomeAssistant } from '../../shared/types';
+import type { GlassCardConfig, HomeAssistant, ActionConfig } from '../../shared/types';
 import { findEntity } from '../../shared/entities';
 import { nextTarget } from './logic';
 import './editor';
@@ -196,9 +196,9 @@ export class GlassClimateCard extends GlassCard<ClimateConfig> {
 
     return html`<div class="glass">
       ${cardHead(
-        'mdi:thermometer',
+        this.iconFor('mdi:thermometer'),
         c.name ?? this.t('climate.title'),
-        'var(--g-orange)',
+        this.colorFor('var(--g-orange)'),
         html`<div class="adjust">
           <button
             class="round-btn"
@@ -233,8 +233,12 @@ export class GlassClimateCard extends GlassCard<ClimateConfig> {
     </div>`;
   }
 
+  protected defaultTapAction(): ActionConfig | undefined {
+    return { action: 'more-info', entity: this._config?.entity };
+  }
+
   public getGridOptions() {
-    return { columns: 6, rows: 4 };
+    return { columns: 6, rows: 4, min_columns: 3, min_rows: 3 };
   }
 }
 

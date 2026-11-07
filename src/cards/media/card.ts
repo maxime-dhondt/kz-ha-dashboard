@@ -5,7 +5,7 @@ import { entityName, findEntity, isUnavailable, numAttr, strAttr } from '../../s
 import { registerCard } from '../../shared/register';
 import { glass, tokens } from '../../shared/styles';
 import { cardHead, missingEntity } from '../../shared/templates';
-import type { GlassCardConfig, HomeAssistant } from '../../shared/types';
+import type { GlassCardConfig, HomeAssistant, ActionConfig } from '../../shared/types';
 import './editor';
 
 export interface MediaConfig extends GlassCardConfig {
@@ -195,7 +195,11 @@ export class GlassMediaCard extends GlassCard<MediaConfig> {
     const hasVolume = stateObj.attributes.volume_level !== undefined;
 
     return html`<div class="glass">
-      ${cardHead('mdi:music', c.name ?? this.t('media.title'), 'var(--g-accent)')}
+      ${cardHead(
+        this.iconFor('mdi:music'),
+        c.name ?? this.t('media.title'),
+        this.colorFor('var(--g-accent)'),
+      )}
       <div class="now">
         <div class="art">
           ${
@@ -259,8 +263,12 @@ export class GlassMediaCard extends GlassCard<MediaConfig> {
     </div>`;
   }
 
+  protected defaultTapAction(): ActionConfig | undefined {
+    return { action: 'more-info', entity: this._config?.entity };
+  }
+
   public getGridOptions() {
-    return { columns: 6, rows: 4 };
+    return { columns: 6, rows: 4, min_columns: 3, min_rows: 3 };
   }
 }
 

@@ -151,7 +151,11 @@ export class GlassLightsCard extends GlassCard<LightsConfig> {
     const onCount = countOn(states, ids);
 
     return html`<div class="glass">
-      ${cardHead('mdi:lightbulb', c.name ?? this.t('lights.title'), 'var(--g-yellow)')}
+      ${cardHead(
+        this.iconFor('mdi:lightbulb'),
+        c.name ?? this.t('lights.title'),
+        this.colorFor('var(--g-yellow)'),
+      )}
       <div class="summary">
         <div>
           <div class="count">${onCount}<span class="total"> / ${ids.length}</span></div>
@@ -190,7 +194,7 @@ export class GlassLightsCard extends GlassCard<LightsConfig> {
   }
 
   public getGridOptions() {
-    return { columns: 6, rows: 4 };
+    return { columns: 6, rows: 4, min_columns: 3, min_rows: 3 };
   }
 }
 

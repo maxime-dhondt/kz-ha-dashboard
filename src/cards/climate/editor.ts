@@ -1,8 +1,13 @@
-import { defineEditor, entitySelector } from '../../shared/editor';
+import {
+  appearanceSection,
+  defineEditor,
+  entitySelector,
+  interactionsSection,
+} from '../../shared/editor';
 
 defineEditor('glass-climate-card-editor', () => [
   { name: 'entity', required: true, selector: entitySelector('climate') },
-  { name: 'name', selector: { text: {} } },
+  appearanceSection(),
   { name: 'history_entity', selector: entitySelector('sensor') },
   {
     type: 'grid',
@@ -13,4 +18,5 @@ defineEditor('glass-climate-card-editor', () => [
     ],
   },
   { name: 'show_chart', selector: { boolean: {} } },
+  interactionsSection(),
 ]);

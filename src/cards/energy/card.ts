@@ -8,7 +8,7 @@ import { bucketize, fetchHistory } from '../../shared/history';
 import { registerCard } from '../../shared/register';
 import { glass, tokens } from '../../shared/styles';
 import { cardHead, missingEntity } from '../../shared/templates';
-import type { GlassCardConfig, HomeAssistant } from '../../shared/types';
+import type { GlassCardConfig, HomeAssistant, ActionConfig } from '../../shared/types';
 import { findEntity } from '../../shared/entities';
 import { powerDigits, toKw } from './logic';
 import './editor';
@@ -139,7 +139,11 @@ export class GlassEnergyCard extends GlassCard<EnergyConfig> {
       : [];
 
     return html`<div class="glass">
-      ${cardHead('mdi:lightning-bolt', c.name ?? this.t('energy.title'), 'var(--g-yellow)')}
+      ${cardHead(
+        this.iconFor('mdi:lightning-bolt'),
+        c.name ?? this.t('energy.title'),
+        this.colorFor('var(--g-yellow)'),
+      )}
       <div class="reading">
         <span class="value"
           >${power ? formatNumber(this.hass, power.value, powerDigits(power.value)) : '–'}</span
@@ -158,8 +162,12 @@ export class GlassEnergyCard extends GlassCard<EnergyConfig> {
     </div>`;
   }
 
+  protected defaultTapAction(): ActionConfig | undefined {
+    return { action: 'more-info', entity: this._config?.entity };
+  }
+
   public getGridOptions() {
-    return { columns: 6, rows: 4 };
+    return { columns: 6, rows: 4, min_columns: 3, min_rows: 3 };
   }
 }
 

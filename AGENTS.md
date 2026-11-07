@@ -56,7 +56,12 @@ Read `docs/ARCHITECTURE.md` first for the design, `docs/ADD-A-CARD.md` to add a 
 8. Don't import Home Assistant internals; rely on documented events (`hass-more-info`, `location-changed`)
    and the standard elements `ha-icon`, `ha-form`, `ha-camera-stream`.
 9. Config keys are `snake_case`; document every new key in `docs/CARDS.md` **and** in the card's TS interface doc comment.
-10. Conventional commits (`feat:`, `fix:`, `docs:`, `chore:`…). Update `CHANGELOG.md` for user-visible changes.
+10. **Native-like options on every card:** header cards use `this.iconFor()` / `this.colorFor()`, never a
+    hard-coded icon/color; the card body gets `tap_action` / `hold_action` from `GlassCard` (override
+    `defaultTapAction()`); the editor includes `appearanceSection()` + `interactionsSection()`.
+    List options use `listSelector()` (visual rows), not YAML. Provide `getGridOptions()` with
+    `min_columns` / `min_rows` so the card works in a Sections view.
+11. Conventional commits (`feat:`, `fix:`, `docs:`, `chore:`…). Update `CHANGELOG.md` for user-visible changes.
 
 ## Verifying visual changes
 
@@ -73,4 +78,6 @@ The reference design (mockups) is described in `docs/DESIGN.md`.
 
 - The Home Assistant native sidebar/header cannot be hidden by a card; use the `kiosk-mode` HACS plugin (see README).
 - `search_action` default emulates the quick-bar shortcut (`e`); it is best effort.
-- The visual editors use YAML (`object` selector) for list fields (rooms, modes, items).
+- Visual editors rely on `ha-form` selectors (`object` with `multiple`/`fields`, `ui_action`, `ui_color`, `navigation`): they
+  need a recent Home Assistant and cannot be exercised by the local preview (no `ha-form` there). `glass-layout-card`
+  children (`sidebar`, `header`, `cards`) are still YAML.

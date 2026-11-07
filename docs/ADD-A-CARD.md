@@ -56,6 +56,14 @@ Example: `glass-weather-card`.
 6. **Verify**: `npm run check`.
 7. Add a line to `CHANGELOG.md`.
 
+## Native-like options (do this for every card)
+
+- Header: `cardHead(this.iconFor('mdi:default'), title, this.colorFor('var(--g-xxx)'))`.
+- Body actions: nothing to write; override `defaultTapAction()` to return `{ action: 'more-info', entity }`.
+- Editor: `appearanceSection()` (name, icon, color) and `interactionsSection()` (tap/hold).
+- Lists: `listSelector({ labelField, fields })` instead of a YAML field.
+- Size: `getGridOptions()` returning `columns`, `rows`, `min_columns`, `min_rows` (Sections view).
+
 ## Conventions recap
 
 - Missing/unknown entity → `missingEntity(this.hass, id)`, never throw in `render()`.

@@ -5,7 +5,7 @@ import { entityName, findEntity } from '../../shared/entities';
 import { registerCard } from '../../shared/register';
 import { glass, tokens } from '../../shared/styles';
 import { cardHead, missingEntity } from '../../shared/templates';
-import type { GlassCardConfig, HomeAssistant } from '../../shared/types';
+import type { GlassCardConfig, HomeAssistant, ActionConfig } from '../../shared/types';
 import { ARM_SERVICE, insecureDoors, securityView, type ArmMode } from './logic';
 import './editor';
 
@@ -148,7 +148,11 @@ export class GlassSecurityCard extends GlassCard<SecurityConfig> {
     const mode = c.arm_mode ?? 'home';
 
     return html`<div class="glass">
-      ${cardHead('mdi:shield-check', c.name ?? this.t('security.title'), 'var(--g-green)')}
+      ${cardHead(
+        this.iconFor('mdi:shield-check'),
+        c.name ?? this.t('security.title'),
+        this.colorFor('var(--g-green)'),
+      )}
       <div class="body" data-tone=${view.tone}>
         <span class="shield"><ha-icon .icon=${view.icon}></ha-icon></span>
         <div class="status">${this.t(view.labelKey)}</div>
@@ -161,8 +165,12 @@ export class GlassSecurityCard extends GlassCard<SecurityConfig> {
     </div>`;
   }
 
+  protected defaultTapAction(): ActionConfig | undefined {
+    return { action: 'more-info', entity: this._config?.entity };
+  }
+
   public getGridOptions() {
-    return { columns: 4, rows: 4 };
+    return { columns: 6, rows: 4, min_columns: 3, min_rows: 3 };
   }
 }
 

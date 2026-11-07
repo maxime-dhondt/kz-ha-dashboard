@@ -165,7 +165,7 @@ export class GlassQuickInfoCard extends GlassCard<QuickInfoConfig> {
   }
 
   public getGridOptions() {
-    return { columns: 3, rows: 4 };
+    return { columns: 6, rows: 4, min_columns: 3, min_rows: 2 };
   }
 }
 

@@ -36,7 +36,7 @@ type: custom:glass-climate-card
 entity: climate.living_room
 ```
 
-The cards also have a visual editor in the card picker.
+The cards also have a visual editor in the card picker (lists included, no YAML needed), per-card `icon` / `color` / `tap_action` / `hold_action`, and can be dropped straight into a native **Sections** view: see [`examples/sections-view.yaml`](examples/sections-view.yaml).
 
 ## Develop
 

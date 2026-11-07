@@ -1,0 +1,66 @@
+# Glass Home – native "Sections" view (no layout card, everything editable in the UI)
+#
+# Each card is a normal Lovelace card: add it from the card picker ("Glass …"), configure it in the
+# visual editor, drag it around and resize it with the sections editor (Edit dashboard → card → Layout).
+# The glass look comes from the cards themselves; the background is the view's own `background`.
+#
+# Paste in: Edit dashboard → ⋮ → Raw configuration editor (replace the entities with yours).
+
+title: Home
+views:
+  - title: Glass
+    path: glass
+    type: sections
+    max_columns: 3
+    # Put your picture in /config/www/glass-home/house.jpg
+    background: center / cover no-repeat url('/local/glass-home/house.jpg') fixed
+    sections:
+      - type: grid
+        cards:
+          - type: custom:glass-header-card
+            weather_entity: weather.home
+          - type: custom:glass-modes-card
+            entity: input_select.house_mode
+            modes:
+              - { name: Home, subtitle: Home mode, icon: mdi:home, option: Home, color: blue }
+              - {
+                  name: Night,
+                  subtitle: Night mode,
+                  icon: mdi:weather-night,
+                  option: Night,
+                  color: blue-grey,
+                }
+              - {
+                  name: Away,
+                  subtitle: Away mode,
+                  icon: mdi:airplane,
+                  option: Away,
+                  color: blue-grey,
+                }
+              - { name: Eco, subtitle: Eco mode, icon: mdi:leaf, option: Eco, color: green }
+          - type: custom:glass-climate-card
+            entity: climate.living_room
+          - type: custom:glass-lights-card
+            rooms:
+              - { name: Living Room, icon: mdi:sofa, entities: [light.living_room_main] }
+              - { name: Kitchen, icon: mdi:silverware-fork-knife, entities: [light.kitchen] }
+
+      - type: grid
+        cards:
+          - type: custom:glass-camera-card
+            entity: camera.front_door
+            name: Front Door
+          - type: custom:glass-security-card
+            entity: alarm_control_panel.home
+            door_entities: [lock.front_door, cover.garage_door]
+          - type: custom:glass-energy-card
+            entity: sensor.house_power
+
+      - type: grid
+        cards:
+          - type: custom:glass-media-card
+            entity: media_player.living_room
+          - type: custom:glass-quick-info-card
+            items:
+              - { type: calendar, entity: calendar.work, name: Next event }
+              - { entity: cover.garage_door, name: Garage }

@@ -51,6 +51,21 @@ editor.ts ─ defineEditor('glass-xxx-card-editor', () => [ ha-form fields ])
 (`hass.themes.darkMode`), **skipping renders** when none of `watchedEntities()` changed, and a
 refresh timer (`refreshInterval`).
 
+## Common card options
+
+`GlassCard` implements `icon`, `color`, `tap_action` and `hold_action` for every card:
+
+- `color` sets `--glass-accent` on the host (so switches, active tiles… follow it) and the header bubble.
+- Pointer events are listened to on the host; presses that cross a `button`, `input`, `[role=button]`…
+  (`shared/interaction.ts`) are ignored, so only the free area of the card runs the action.
+- Hold is only armed when `hold_action` is configured; the `actionable` attribute drives `cursor: pointer`.
+
+## Editors
+
+`defineEditor(tag, (hass, t) => schema)` renders an `ha-form`. Shared pieces live in `shared/editor.ts`:
+`appearanceSection()`, `interactionsSection()`, `listSelector()` (HA `object` selector with `multiple`
+and `fields`: add / remove / reorder rows, nested entity / icon / color / action pickers).
+
 ## Layout card & responsiveness
 
 `glass-layout-card` observes its own width (`ResizeObserver`) and sets `size="desktop|tablet|mobile"`

@@ -358,7 +358,7 @@ export class GlassSidebarCard extends GlassCard<SidebarConfig> {
   }
 
   public getGridOptions() {
-    return { columns: 3, rows: 8 };
+    return { columns: 4, rows: 8, min_columns: 2, min_rows: 4 };
   }
 }
 

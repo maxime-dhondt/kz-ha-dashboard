@@ -3,6 +3,31 @@
 All cards accept `name` (title override) unless noted. Entities are **always** configured by you.
 Type names: `custom:glass-<name>-card`.
 
+## Common options (climate, lights, camera, security, energy, media)
+
+| Option        | Description                                                                      |
+| ------------- | -------------------------------------------------------------------------------- |
+| `name`        | Title override                                                                   |
+| `icon`        | Header icon, e.g. `mdi:sofa`                                                     |
+| `color`       | Accent color: HA color name (`red`, `deep-orange`…) or any CSS color (`#ff8800`) |
+| `tap_action`  | Tap on the card body (default: `more-info` of the main entity; lights: none)     |
+| `hold_action` | Long press on the card body (default: none)                                      |
+
+Buttons, sliders and tiles inside a card keep their own behavior; only the free area of the card
+triggers `tap_action` / `hold_action`. Actions use the native format (see _Actions_ below) and are
+edited with the standard action editor.
+
+All list options (rooms, modes, items, sidebar items) are edited **visually** in the card editor:
+add, remove and reorder rows, with entity / icon / color / action pickers. The YAML shape is unchanged.
+
+## Using the cards in a Sections view (no layout card)
+
+Every card except `glass-layout-card` can be placed directly in a native **Sections** view: add it from
+the card picker, configure it in the editor, and drag / resize it with the sections editor. The cards
+report their default and minimum size (`getGridOptions`). Use the view's `background` for the picture.
+Full example: [`examples/sections-view.yaml`](../examples/sections-view.yaml).
+Use `glass-layout-card` only if you want the complete page (own sidebar, responsive grid) from YAML.
+
 ## `glass-layout-card`
 
 Full-page layout. Use it in a **panel view** (`panel: true`).

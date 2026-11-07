@@ -6,7 +6,7 @@ import { entityName, findEntity, isUnavailable, strAttr } from '../../shared/ent
 import { registerCard } from '../../shared/register';
 import { glass, tokens } from '../../shared/styles';
 import { cardHead, missingEntity } from '../../shared/templates';
-import type { GlassCardConfig, HomeAssistant } from '../../shared/types';
+import type { GlassCardConfig, HomeAssistant, ActionConfig } from '../../shared/types';
 import './editor';
 
 export interface CameraConfig extends GlassCardConfig {
@@ -128,9 +128,9 @@ export class GlassCameraCard extends GlassCard<CameraConfig> {
 
     return html`<div class="glass">
       ${cardHead(
-        'mdi:video',
+        this.iconFor('mdi:video'),
         name,
-        'var(--g-slate)',
+        this.colorFor('var(--g-slate)'),
         html`<span class="live"
           ><span class="dot ${offline ? 'off' : ''}"></span>${
             offline ? this.t('camera.offline') : this.t('camera.live')
@@ -161,8 +161,12 @@ export class GlassCameraCard extends GlassCard<CameraConfig> {
     </div>`;
   }
 
+  protected defaultTapAction(): ActionConfig | undefined {
+    return { action: 'more-info', entity: this._config?.entity };
+  }
+
   public getGridOptions() {
-    return { columns: 6, rows: 4 };
+    return { columns: 6, rows: 5, min_columns: 3, min_rows: 3 };
   }
 }
 

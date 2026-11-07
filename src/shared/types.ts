@@ -48,6 +48,14 @@ export interface LovelaceCardConfig {
 export interface GlassCardConfig extends LovelaceCardConfig {
   /** Overrides the default card title. */
   name?: string;
+  /** Overrides the header icon (e.g. `mdi:sofa`). */
+  icon?: string;
+  /** Accent color: HA color name (`red`, `deep-orange`…) or any CSS color. */
+  color?: string;
+  /** Action when the card body is tapped (buttons inside keep their own behavior). */
+  tap_action?: ActionConfig;
+  /** Action when the card body is long-pressed. */
+  hold_action?: ActionConfig;
 }
 
 export type ActionType =

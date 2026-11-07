@@ -1,14 +1,15 @@
-import { defineEditor, entitySelector } from '../../shared/editor';
+import {
+  appearanceSection,
+  defineEditor,
+  entitiesSelector,
+  entitySelector,
+  interactionsSection,
+} from '../../shared/editor';
 
 defineEditor('glass-security-card-editor', () => [
   { name: 'entity', required: true, selector: entitySelector('alarm_control_panel') },
-  { name: 'name', selector: { text: {} } },
-  {
-    name: 'door_entities',
-    selector: {
-      entity: { multiple: true, domain: ['binary_sensor', 'lock', 'cover'] },
-    },
-  },
+  appearanceSection(),
+  { name: 'door_entities', selector: entitiesSelector(['binary_sensor', 'lock', 'cover']) },
   {
     name: 'arm_mode',
     selector: {
@@ -23,4 +24,5 @@ defineEditor('glass-security-card-editor', () => [
     },
   },
   { name: 'code', selector: { text: { type: 'password' } } },
+  interactionsSection(),
 ]);
