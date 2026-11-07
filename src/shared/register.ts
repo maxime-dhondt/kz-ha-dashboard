@@ -9,7 +9,7 @@ export function registerCard(meta: {
   if (window.customCards.some((c) => c.type === meta.type)) return;
   window.customCards.push({
     preview: true,
-    documentationURL: 'https://github.com/REPLACE_ME/glass-home-dashboard',
+    documentationURL: 'https://github.com/maxime-dhondt/kz-ha-dashboard',
     ...meta,
   });
 }
