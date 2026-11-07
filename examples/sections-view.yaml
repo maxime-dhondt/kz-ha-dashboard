@@ -13,8 +13,8 @@ views:
     path: glass
     type: sections
     max_columns: 4
-    # Put your picture in /config/www/glass-home/house.jpg
-    background: center / cover no-repeat url('/local/glass-home/house.jpg') fixed
+    # Copy examples/house.jpg (or your own picture) to /config/www/glass-home/house.jpg
+    background: 80% center / cover no-repeat url('/local/glass-home/house.jpg') fixed
     sections:
       # Row 1: the whole view width (header + modes)
       - type: grid

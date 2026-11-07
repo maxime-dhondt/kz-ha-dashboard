@@ -172,10 +172,11 @@ export function createSectionsFrame(
   const bg = dark ? '#111111' : '#fafafa';
   const fg = dark ? '#e1e1e1' : '#212121';
   const bar = dark ? '#1c1c1c' : '#03a9f4';
-  const viewBg =
-    view.background && !view.background.includes('/local/')
-      ? view.background
-      : 'center / cover no-repeat linear-gradient(165deg,#aebdee 0%,#cdc6ea 45%,#efd8cf 100%)';
+  // The example points at /local/glass-home/house.jpg (HA's www folder); the preview serves it from examples/.
+  const viewBg = (
+    view.background ??
+    'center / cover no-repeat linear-gradient(165deg,#aebdee 0%,#cdc6ea 45%,#efd8cf 100%)'
+  ).replace('/local/glass-home/', '/examples/');
   frame.style.cssText = `display:flex;width:${width}px;height:${height}px;overflow:hidden;transform:translateZ(0);background:${bg};color:${fg};font:14px system-ui,sans-serif;`;
   frame.innerHTML = `
     ${

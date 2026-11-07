@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Background picture `examples/house.jpg` (copy it to `/config/www/glass-home/house.jpg`); used by the preview.
 - **Breaking:** only the native Sections view is supported. Removed `glass-layout-card` and the panel
   example `examples/dashboard.yaml`.
 - `glass-sidebar-card` is back and works standalone in Sections: fixed panel / rail / bottom bar sized from
