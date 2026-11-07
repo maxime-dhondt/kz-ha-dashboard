@@ -1,0 +1,13 @@
+# Add these resources under Settings > Dashboards > Resources.
+# HACS normally registers installed resources automatically; do not add duplicates.
+#
+# Mushroom:
+#   /hacsfiles/lovelace-mushroom/mushroom.js
+# layout-card:
+#   /hacsfiles/lovelace-layout-card/layout-card.js
+# card-mod:
+#   /hacsfiles/lovelace-card-mod/card-mod.js
+# mini-graph-card:
+#   /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+#
+# If using HACS, verify the actual resource URL in your Home Assistant instance.
