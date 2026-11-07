@@ -26,8 +26,14 @@ Every card except `glass-layout-card` can be placed directly in a native **Secti
 the card picker, configure it in the editor, and drag / resize it with the sections editor. The cards
 report their default and minimum size (`getGridOptions`). Use the view's `background` for the picture.
 Cards default to one full section column; header and modes to the full view width.
-Full example (4 columns): [`examples/sections-view.yaml`](../examples/sections-view.yaml).
-Use `glass-layout-card` only if you want the complete page (own sidebar, responsive grid) from YAML.
+Two ready-made examples:
+
+- [`examples/sections-view.yaml`](../examples/sections-view.yaml) — **same look as the mockups**:
+  `glass-layout-card` in one full-width section (`column_span: 4`, `max_columns: 4`). It carries its
+  own sidebar, header and responsive grid. A Sections view is narrower than the screen (HA menu and
+  margins), so the example lowers `breakpoints` (`tablet: 1000`, `mobile: 600`).
+- [`examples/sections-view-native.yaml`](../examples/sections-view-native.yaml) — one native card per
+  cell, each movable/resizable in the UI (no custom sidebar; layout follows HA's section columns).
 
 ## `glass-layout-card`
 

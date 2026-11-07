@@ -14,7 +14,8 @@ distributed through HACS (category: Dashboard / `plugin`).
 | `npm test`       | unit tests only (vitest, pure logic, no browser)                        |
 | `npm run format` | prettier --write                                                        |
 
-Preview URL options: `?lang=fr`, `?dark=1`, `?only=desktop|tablet|phone`.
+Preview URL options: `?lang=fr`, `?dark=1`, `?only=desktop|tablet|phone`,
+`?view=panel|sections|sections-native` (Sections views are simulated by `dev/sections-sim.ts`: keep it in sync with HA).
 `examples/dashboard.yaml` is both the user-facing example **and** the preview's source of truth.
 
 ## Repository map

@@ -322,7 +322,7 @@ export class GlassLayoutCard extends GlassCard<LayoutConfig> {
   }
 
   public getGridOptions(): GridOptions {
-    return { columns: 12, rows: 'auto' as const };
+    return { columns: 'full', rows: 'auto' };
   }
 }
 

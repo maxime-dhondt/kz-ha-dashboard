@@ -1,10 +1,11 @@
-# Glass Home – native "Sections" view (no layout card, everything editable in the UI)
+# Glass Home – Sections view hosting the full glass layout (same look as the panel example)
 #
-# Each card is a normal Lovelace card: add it from the card picker ("Glass …"), configure it in the
-# visual editor, drag it around and resize it with the sections editor (Edit dashboard → card → Layout).
-# The glass look comes from the cards themselves; the background is the view's own `background`.
+# One full-width section holds `glass-layout-card`: sidebar, header and the responsive 24-column grid
+# are identical to examples/dashboard.yaml (desktop / tablet / phone). Use this when you want the
+# mockup pixel for pixel inside a Sections view. For individually movable cards, see
+# examples/sections-view-native.yaml.
 #
-# Paste in: Edit dashboard → ⋮ → Raw configuration editor (replace the entities with yours).
+# Replace the entities with yours (see docs/CARDS.md).
 
 title: Home
 views:
@@ -12,64 +13,146 @@ views:
     path: glass
     type: sections
     max_columns: 4
-    # Put your picture in /config/www/glass-home/house.jpg
-    background: center / cover no-repeat url('/local/glass-home/house.jpg') fixed
     sections:
-      # Row 1: the whole view width (header + modes)
       - type: grid
-        column_span: 4
+        column_span: 4 # full view width
         cards:
-          - type: custom:glass-header-card
-            weather_entity: weather.home
-          - type: custom:glass-modes-card
-            entity: input_select.house_mode
-            modes:
-              - { name: Home, subtitle: Home mode, icon: mdi:home, option: Home, color: blue }
-              - {
-                  name: Night,
-                  subtitle: Night mode,
-                  icon: mdi:weather-night,
-                  option: Night,
-                  color: blue-grey,
-                }
-              - {
-                  name: Away,
-                  subtitle: Away mode,
-                  icon: mdi:airplane,
-                  option: Away,
-                  color: blue-grey,
-                }
-              - { name: Eco, subtitle: Eco mode, icon: mdi:leaf, option: Eco, color: green }
+          - type: custom:glass-layout-card
+            grid_options: { columns: full, rows: auto }
+            # Sections views are narrower than the screen (HA menu + margins): switch layouts earlier.
+            breakpoints: { tablet: 1000, mobile: 600 }
+            # Optional. Put an image in /config/www/glass-home/ and reference it as /local/...
+            # background: /local/glass-home/house.jpg
 
-      # Then one column per section (cards fill the column; resize/reorder them in the UI)
-      - type: grid
-        cards:
-          - type: custom:glass-climate-card
-            entity: climate.living_room
-          - type: custom:glass-security-card
-            entity: alarm_control_panel.home
-            door_entities: [lock.front_door, cover.garage_door]
+            sidebar:
+              title: Home
+              subtitle: My Smart Home
+              icon: mdi:home
+              # Footer shows "All systems OK" unless one of these entities is unavailable.
+              status_entities:
+                - alarm_control_panel.home
+                - camera.front_door
+                - climate.living_room
+              items:
+                # pin_mobile: show the item in the phone's bottom bar (the others go in "More").
+                - {
+                    name: Overview,
+                    short_name: Home,
+                    icon: mdi:home,
+                    navigation_path: /dashboard-glass/overview,
+                    pin_mobile: true,
+                  }
+                - {
+                    name: Lights,
+                    icon: mdi:lightbulb,
+                    navigation_path: /dashboard-glass/lights,
+                    pin_mobile: true,
+                  }
+                - {
+                    name: Climate,
+                    icon: mdi:thermometer,
+                    navigation_path: /dashboard-glass/climate,
+                  }
+                - {
+                    name: Security,
+                    icon: mdi:shield-lock,
+                    navigation_path: /dashboard-glass/security,
+                    pin_mobile: true,
+                  }
+                - {
+                    name: Energy,
+                    icon: mdi:lightning-bolt,
+                    navigation_path: /dashboard-glass/energy,
+                    pin_mobile: true,
+                  }
+                - { name: Media, icon: mdi:play-box, navigation_path: /dashboard-glass/media }
+                - { name: Cameras, icon: mdi:video, navigation_path: /dashboard-glass/cameras }
+                - { name: Settings, icon: mdi:cog, navigation_path: /config }
 
-      - type: grid
-        cards:
-          - type: custom:glass-lights-card
-            rooms:
-              - { name: Living Room, icon: mdi:sofa, entities: [light.living_room_main] }
-              - { name: Kitchen, icon: mdi:silverware-fork-knife, entities: [light.kitchen] }
-          - type: custom:glass-energy-card
-            entity: sensor.house_power
+            header:
+              weather_entity: weather.home
+              # outdoor_temperature_entity: sensor.outdoor_temperature
+              # humidity_entity: sensor.outdoor_humidity
+              # person_entity: person.alex        # default: person linked to the logged-in user
+              title: Home # title of the phone top bar
 
-      - type: grid
-        cards:
-          - type: custom:glass-camera-card
-            entity: camera.front_door
-            name: Front Door
-          - type: custom:glass-media-card
-            entity: media_player.living_room
+            # 24-column grid. `grid` is optional on every card:
+            #   columns / tablet_columns / mobile_columns : how many of the 24 columns it spans
+            #   hidden_on : [desktop, tablet, mobile]
+            #   new_row   : start a new row
+            cards:
+              - type: custom:glass-modes-card
+                grid: { columns: 15, tablet_columns: 24 }
+                entity: input_select.house_mode
+                modes:
+                  - {
+                      name: Home,
+                      subtitle: Home mode,
+                      icon: mdi:home,
+                      option: Home,
+                      color: '#2f7bff',
+                    }
+                  - {
+                      name: Night,
+                      subtitle: Night mode,
+                      icon: mdi:weather-night,
+                      option: Night,
+                      color: '#5b6477',
+                    }
+                  - {
+                      name: Away,
+                      subtitle: Away mode,
+                      icon: mdi:airplane,
+                      option: Away,
+                      color: '#5b6477',
+                    }
+                  - { name: Eco, subtitle: Eco mode, icon: mdi:leaf, option: Eco, color: '#1fb25a' }
 
-      - type: grid
-        cards:
-          - type: custom:glass-quick-info-card
-            items:
-              - { type: calendar, entity: calendar.work, name: Next event }
-              - { entity: cover.garage_door, name: Garage }
+              - type: custom:glass-climate-card
+                grid: { columns: 7, tablet_columns: 8, new_row: true }
+                entity: climate.living_room
+                hours: 12
+
+              - type: custom:glass-lights-card
+                grid: { columns: 8, tablet_columns: 8 }
+                rooms:
+                  - {
+                      name: Living Room,
+                      icon: mdi:sofa,
+                      entities: [light.living_room_main, light.living_room_lamp],
+                    }
+                  - { name: Kitchen, icon: mdi:silverware-fork-knife, entities: [light.kitchen] }
+                  - {
+                      name: Bedroom,
+                      icon: mdi:bed,
+                      entities: [light.bedroom_ceiling, light.bedroom_bedside],
+                    }
+                  - { name: Office, icon: mdi:monitor, entities: [light.office] }
+
+              - type: custom:glass-camera-card
+                grid: { columns: 9, tablet_columns: 8 }
+                entity: camera.front_door
+                name: Front Door
+
+              - type: custom:glass-security-card
+                grid: { columns: 5, tablet_columns: 8, new_row: true }
+                entity: alarm_control_panel.home
+                arm_mode: home
+                door_entities:
+                  - lock.front_door
+                  - cover.garage_door
+
+              - type: custom:glass-energy-card
+                grid: { columns: 7, tablet_columns: 8 }
+                entity: sensor.house_power
+
+              - type: custom:glass-media-card
+                grid: { columns: 7, tablet_columns: 8 }
+                entity: media_player.living_room
+
+              - type: custom:glass-quick-info-card
+                grid: { columns: 5, hidden_on: [tablet] }
+                items:
+                  - { type: calendar, entity: calendar.work, name: Next event }
+                  - { entity: cover.garage_door, name: Garage }
+                  - { entity: lock.front_door, name: Front Door, icon: mdi:door-closed }
