@@ -1,0 +1,10 @@
+# Merge this under the top-level lovelace: key in configuration.yaml.
+# Keep resource_mode: storage if you manage HACS resources through the UI.
+lovelace:
+  dashboards:
+    kz-home:
+      mode: yaml
+      title: KZ Home
+      icon: mdi:home-assistant
+      show_in_sidebar: true
+      filename: dashboards/kz-home.yaml
