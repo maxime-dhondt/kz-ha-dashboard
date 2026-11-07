@@ -241,3 +241,139 @@ views:
         forecast_type: daily
         view_layout:
           grid-area: weather
+
+  - title: Rooms
+    path: rooms
+    icon: mdi:floor-plan
+    cards:
+      - type: heading
+        heading: Rooms
+      - type: custom:mushroom-light-card
+        entity: light.living_room
+        name: Living Room
+        show_brightness_control: true
+      - type: custom:mushroom-light-card
+        entity: light.bedroom
+        name: Bedroom
+        show_brightness_control: true
+      - type: custom:mushroom-light-card
+        entity: light.bathroom
+        name: Bathroom
+        show_brightness_control: true
+      - type: custom:mushroom-light-card
+        entity: light.office
+        name: Office
+        show_brightness_control: true
+
+  - title: Media
+    path: media
+    icon: mdi:play-box-multiple
+    cards:
+      - type: heading
+        heading: Media
+      - type: custom:mushroom-media-player-card
+        entity: media_player.home_speaker
+        name: Home Speaker
+        use_media_info: true
+        show_volume_level: true
+        volume_controls:
+          - volume_mute
+          - volume_set
+        media_controls:
+          - previous
+          - play_pause_stop
+          - next
+      - type: custom:mushroom-media-player-card
+        entity: media_player.living_room_tv
+        name: Living Room TV
+        use_media_info: true
+        show_volume_level: true
+
+  - title: Energy
+    path: energy
+    icon: mdi:lightning-bolt
+    cards:
+      - type: heading
+        heading: Energy
+      - type: custom:mini-graph-card
+        name: Energy consumption
+        entities:
+          - entity: sensor.energy_consumption
+        hours_to_show: 168
+        points_per_hour: 0.25
+        show:
+          fill: fade
+          labels: true
+          extrema: true
+      - type: custom:mushroom-entity-card
+        entity: sensor.energy_consumption
+        name: Current consumption
+        icon: mdi:lightning-bolt
+
+  - title: Security
+    path: security
+    icon: mdi:shield-home
+    cards:
+      - type: heading
+        heading: Security
+      - type: alarm-panel
+        entity: alarm_control_panel.home
+      - type: picture-entity
+        entity: camera.front_door
+        name: Front Door
+        camera_view: live
+
+  - title: Living Room
+    path: living-room
+    icon: mdi:sofa
+    cards:
+      - type: heading
+        heading: Living Room
+      - type: thermostat
+        entity: climate.living_room
+        name: Climate
+      - type: custom:mushroom-light-card
+        entity: light.living_room
+        show_brightness_control: true
+        use_light_color: true
+      - type: custom:mushroom-media-player-card
+        entity: media_player.living_room_tv
+        use_media_info: true
+      - type: picture-entity
+        entity: camera.living_room
+        camera_view: live
+
+  - title: Bathroom
+    path: bathroom
+    icon: mdi:shower
+    cards:
+      - type: heading
+        heading: Bathroom
+      - type: custom:mushroom-light-card
+        entity: light.bathroom
+        show_brightness_control: true
+
+  - title: Office
+    path: office
+    icon: mdi:desk
+    cards:
+      - type: heading
+        heading: Office
+      - type: custom:mushroom-light-card
+        entity: light.office
+        show_brightness_control: true
+      - type: custom:mushroom-entity-card
+        entity: sensor.office_temperature
+        name: Temperature
+
+  - title: Bedroom
+    path: bedroom
+    icon: mdi:bed
+    cards:
+      - type: heading
+        heading: Bedroom
+      - type: custom:mushroom-light-card
+        entity: light.bedroom
+        show_brightness_control: true
+        show_color_temp_control: true
+        use_light_color: true
