@@ -25,7 +25,8 @@ add, remove and reorder rows, with entity / icon / color / action pickers. The Y
 Every card except `glass-layout-card` can be placed directly in a native **Sections** view: add it from
 the card picker, configure it in the editor, and drag / resize it with the sections editor. The cards
 report their default and minimum size (`getGridOptions`). Use the view's `background` for the picture.
-Full example: [`examples/sections-view.yaml`](../examples/sections-view.yaml).
+Cards default to one full section column; header and modes to the full view width.
+Full example (4 columns): [`examples/sections-view.yaml`](../examples/sections-view.yaml).
 Use `glass-layout-card` only if you want the complete page (own sidebar, responsive grid) from YAML.
 
 ## `glass-layout-card`

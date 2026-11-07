@@ -1,6 +1,6 @@
 import { css, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { GlassCard } from '../../shared/base-card';
+import { GlassCard, type GridOptions } from '../../shared/base-card';
 import { findEntity } from '../../shared/entities';
 import { Press } from '../../shared/press';
 import { fireEvent } from '../../shared/actions';
@@ -193,8 +193,8 @@ export class GlassLightsCard extends GlassCard<LightsConfig> {
     </div>`;
   }
 
-  public getGridOptions() {
-    return { columns: 6, rows: 4, min_columns: 3, min_rows: 3 };
+  public getGridOptions(): GridOptions {
+    return { columns: 12, rows: 4, min_columns: 6, min_rows: 3 };
   }
 }
 

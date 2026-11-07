@@ -1,7 +1,7 @@
 import { css, html, nothing, type TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { fireEvent } from '../../shared/actions';
-import { GlassCard, requireEntity } from '../../shared/base-card';
+import { GlassCard, requireEntity, type GridOptions } from '../../shared/base-card';
 import { entityName, findEntity, isUnavailable, strAttr } from '../../shared/entities';
 import { registerCard } from '../../shared/register';
 import { glass, tokens } from '../../shared/styles';
@@ -165,8 +165,8 @@ export class GlassCameraCard extends GlassCard<CameraConfig> {
     return { action: 'more-info', entity: this._config?.entity };
   }
 
-  public getGridOptions() {
-    return { columns: 6, rows: 5, min_columns: 3, min_rows: 3 };
+  public getGridOptions(): GridOptions {
+    return { columns: 12, rows: 5, min_columns: 6, min_rows: 3 };
   }
 }
 

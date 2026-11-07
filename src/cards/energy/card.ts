@@ -1,6 +1,6 @@
 import { css, html, type TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { GlassCard, requireEntity } from '../../shared/base-card';
+import { GlassCard, requireEntity, type GridOptions } from '../../shared/base-card';
 import { barRatios } from '../../shared/charts';
 import { strAttr, toNumber } from '../../shared/entities';
 import { formatHourLabel, formatNumber } from '../../shared/format';
@@ -166,8 +166,8 @@ export class GlassEnergyCard extends GlassCard<EnergyConfig> {
     return { action: 'more-info', entity: this._config?.entity };
   }
 
-  public getGridOptions() {
-    return { columns: 6, rows: 4, min_columns: 3, min_rows: 3 };
+  public getGridOptions(): GridOptions {
+    return { columns: 12, rows: 4, min_columns: 6, min_rows: 3 };
   }
 }
 

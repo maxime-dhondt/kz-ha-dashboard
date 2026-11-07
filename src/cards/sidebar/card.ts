@@ -1,7 +1,7 @@
 import { css, html, nothing, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { navigate } from '../../shared/actions';
-import { GlassCard } from '../../shared/base-card';
+import { GlassCard, type GridOptions } from '../../shared/base-card';
 import { isUnavailable } from '../../shared/entities';
 import { formatShortDate, formatTime } from '../../shared/format';
 import { registerCard } from '../../shared/register';
@@ -357,7 +357,7 @@ export class GlassSidebarCard extends GlassCard<SidebarConfig> {
     </div>`;
   }
 
-  public getGridOptions() {
+  public getGridOptions(): GridOptions {
     return { columns: 4, rows: 8, min_columns: 2, min_rows: 4 };
   }
 }

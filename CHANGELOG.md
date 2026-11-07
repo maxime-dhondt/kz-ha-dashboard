@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.2.0 — unreleased
+## 0.2.1
+
+- Sections view: cards now default to a full section column (12/12), header and modes to the full
+  view width; `examples/sections-view.yaml` rebuilt as a 4-column layout closer to the mockup.
+
+## 0.2.0
 
 - Visual editors for list options (rooms, modes, items, sidebar items): no YAML needed.
 - Per-card `icon`, `color`, `tap_action`, `hold_action` (native action editor).

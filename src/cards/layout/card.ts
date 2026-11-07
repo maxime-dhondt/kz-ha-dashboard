@@ -1,7 +1,7 @@
 import { css, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { GlassCard } from '../../shared/base-card';
+import { GlassCard, type GridOptions } from '../../shared/base-card';
 import { registerCard } from '../../shared/register';
 import { tokens } from '../../shared/styles';
 import type {
@@ -321,7 +321,7 @@ export class GlassLayoutCard extends GlassCard<LayoutConfig> {
     return 12;
   }
 
-  public getGridOptions() {
+  public getGridOptions(): GridOptions {
     return { columns: 12, rows: 'auto' as const };
   }
 }

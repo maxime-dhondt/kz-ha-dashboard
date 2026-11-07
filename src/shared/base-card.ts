@@ -7,6 +7,16 @@ import { crossedInteractive } from './interaction';
 import { Press } from './press';
 import type { ActionConfig, GlassCardConfig, HomeAssistant } from './types';
 
+/** Size hints for the native Sections view (a section column is 12 grid columns wide). */
+export interface GridOptions {
+  columns?: number | 'full';
+  rows?: number | 'auto';
+  min_columns?: number;
+  max_columns?: number;
+  min_rows?: number;
+  max_rows?: number;
+}
+
 /**
  * Base class of every Glass card.
  *
@@ -161,8 +171,8 @@ export abstract class GlassCard<C extends GlassCardConfig = GlassCardConfig> ext
   }
 
   /** Sections-view sizing (12-column grid). */
-  public getGridOptions(): { columns: number; rows: number | 'auto' } {
-    return { columns: 6, rows: 3 };
+  public getGridOptions(): GridOptions {
+    return { columns: 12, rows: 3, min_columns: 6, min_rows: 2 };
   }
 }
 

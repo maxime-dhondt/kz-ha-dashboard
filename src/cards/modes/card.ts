@@ -1,7 +1,7 @@
 import { css, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { runAction } from '../../shared/actions';
-import { GlassCard } from '../../shared/base-card';
+import { GlassCard, type GridOptions } from '../../shared/base-card';
 import { resolveColor } from '../../shared/colors';
 import { domainOf, findEntity } from '../../shared/entities';
 import { Press } from '../../shared/press';
@@ -214,8 +214,8 @@ export class GlassModesCard extends GlassCard<ModesConfig> {
     </div>`;
   }
 
-  public getGridOptions() {
-    return { columns: 12, rows: 2, min_columns: 6, min_rows: 1 };
+  public getGridOptions(): GridOptions {
+    return { columns: 'full' as const, rows: 2, min_columns: 6, min_rows: 1 };
   }
 }
 

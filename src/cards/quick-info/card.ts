@@ -1,7 +1,7 @@
 import { css, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { runAction } from '../../shared/actions';
-import { GlassCard } from '../../shared/base-card';
+import { GlassCard, type GridOptions } from '../../shared/base-card';
 import { defaultIcon, findEntity, isUnavailable, stateLabel, strAttr } from '../../shared/entities';
 import { formatShortDate, formatTime } from '../../shared/format';
 import { registerCard } from '../../shared/register';
@@ -164,8 +164,8 @@ export class GlassQuickInfoCard extends GlassCard<QuickInfoConfig> {
     </div>`;
   }
 
-  public getGridOptions() {
-    return { columns: 6, rows: 4, min_columns: 3, min_rows: 2 };
+  public getGridOptions(): GridOptions {
+    return { columns: 12, rows: 4, min_columns: 6, min_rows: 2 };
   }
 }
 

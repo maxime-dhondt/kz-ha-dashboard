@@ -1,6 +1,6 @@
 import { css, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { GlassCard, requireEntity } from '../../shared/base-card';
+import { GlassCard, requireEntity, type GridOptions } from '../../shared/base-card';
 import { entityName, findEntity } from '../../shared/entities';
 import { registerCard } from '../../shared/register';
 import { glass, tokens } from '../../shared/styles';
@@ -169,8 +169,8 @@ export class GlassSecurityCard extends GlassCard<SecurityConfig> {
     return { action: 'more-info', entity: this._config?.entity };
   }
 
-  public getGridOptions() {
-    return { columns: 6, rows: 4, min_columns: 3, min_rows: 3 };
+  public getGridOptions(): GridOptions {
+    return { columns: 12, rows: 4, min_columns: 6, min_rows: 3 };
   }
 }
 

@@ -11,11 +11,13 @@ views:
   - title: Glass
     path: glass
     type: sections
-    max_columns: 3
+    max_columns: 4
     # Put your picture in /config/www/glass-home/house.jpg
     background: center / cover no-repeat url('/local/glass-home/house.jpg') fixed
     sections:
+      # Row 1: the whole view width (header + modes)
       - type: grid
+        column_span: 4
         cards:
           - type: custom:glass-header-card
             weather_entity: weather.home
@@ -38,28 +40,35 @@ views:
                   color: blue-grey,
                 }
               - { name: Eco, subtitle: Eco mode, icon: mdi:leaf, option: Eco, color: green }
+
+      # Then one column per section (cards fill the column; resize/reorder them in the UI)
+      - type: grid
+        cards:
           - type: custom:glass-climate-card
             entity: climate.living_room
+          - type: custom:glass-security-card
+            entity: alarm_control_panel.home
+            door_entities: [lock.front_door, cover.garage_door]
+
+      - type: grid
+        cards:
           - type: custom:glass-lights-card
             rooms:
               - { name: Living Room, icon: mdi:sofa, entities: [light.living_room_main] }
               - { name: Kitchen, icon: mdi:silverware-fork-knife, entities: [light.kitchen] }
+          - type: custom:glass-energy-card
+            entity: sensor.house_power
 
       - type: grid
         cards:
           - type: custom:glass-camera-card
             entity: camera.front_door
             name: Front Door
-          - type: custom:glass-security-card
-            entity: alarm_control_panel.home
-            door_entities: [lock.front_door, cover.garage_door]
-          - type: custom:glass-energy-card
-            entity: sensor.house_power
+          - type: custom:glass-media-card
+            entity: media_player.living_room
 
       - type: grid
         cards:
-          - type: custom:glass-media-card
-            entity: media_player.living_room
           - type: custom:glass-quick-info-card
             items:
               - { type: calendar, entity: calendar.work, name: Next event }
