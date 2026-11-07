@@ -51,7 +51,7 @@ Example: `glass-weather-card`.
 2. **Register** it: add `import './weather/card';` to `src/cards/index.ts`.
 3. **Translate**: add every new `t('weather.…')` / `editor.…` key to `translations/en.ts` **and** `fr.ts`.
 4. **Document**: add a section to `docs/CARDS.md` (options table + YAML example).
-5. **Preview**: add mock entities to `dev/mock-hass.ts` and the card to `examples/dashboard.yaml`
+5. **Preview**: add mock entities to `dev/mock-hass.ts` and the card to `examples/sections-view.yaml`
    (use the `grid:` key), then check `npm run dev` in the 3 frames.
 6. **Verify**: `npm run check`.
 7. Add a line to `CHANGELOG.md`.

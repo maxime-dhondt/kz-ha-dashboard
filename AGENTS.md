@@ -15,8 +15,9 @@ distributed through HACS (category: Dashboard / `plugin`).
 | `npm run format` | prettier --write                                                        |
 
 Preview URL options: `?lang=fr`, `?dark=1`, `?only=desktop|tablet|phone`,
-`?view=panel|sections|sections-native` (Sections views are simulated by `dev/sections-sim.ts`: keep it in sync with HA).
-`examples/dashboard.yaml` is both the user-facing example **and** the preview's source of truth.
+The preview simulates HA's native **Sections** view (`dev/sections-sim.ts`: column count, 12-column section grid,
+56 px rows, menu + top bar): keep it in sync with HA.
+`examples/sections-view.yaml` is both the user-facing example **and** the preview's source of truth.
 
 ## Repository map
 
@@ -53,7 +54,7 @@ Read `docs/ARCHITECTURE.md` first for the design, `docs/ADD-A-CARD.md` to add a 
 5. **Colors/radii/blur via tokens** (`--g-*` fed by `--glass-*` overridable variables) — never raw colors in cards
    (the only exceptions are weather icon colors in `header/logic.ts`).
 6. **Performance:** a card must declare `watchedEntities()` so it re-renders only when its entities change.
-7. **Layout is data-driven:** placement is configured in YAML (`grid:` on each card), not in code.
+7. **Layout is HA's:** placement/size come from Sections (`grid_options`, `getGridOptions()`), not from custom code.
 8. Don't import Home Assistant internals; rely on documented events (`hass-more-info`, `location-changed`)
    and the standard elements `ha-icon`, `ha-form`, `ha-camera-stream`.
 9. Config keys are `snake_case`; document every new key in `docs/CARDS.md` **and** in the card's TS interface doc comment.
@@ -77,8 +78,7 @@ The reference design (mockups) is described in `docs/DESIGN.md`.
 
 ## Known limitations / open points
 
-- The Home Assistant native sidebar/header cannot be hidden by a card; use the `kiosk-mode` HACS plugin (see README).
+- The only supported layout is the native Sections view; there is no custom sidebar (HA's menu is used).
 - `search_action` default emulates the quick-bar shortcut (`e`); it is best effort.
 - Visual editors rely on `ha-form` selectors (`object` with `multiple`/`fields`, `ui_action`, `ui_color`, `navigation`): they
-  need a recent Home Assistant and cannot be exercised by the local preview (no `ha-form` there). `glass-layout-card`
-  children (`sidebar`, `header`, `cards`) are still YAML.
+  need a recent Home Assistant and cannot be exercised by the local preview (no `ha-form` there).

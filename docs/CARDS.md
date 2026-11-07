@@ -17,59 +17,24 @@ Buttons, sliders and tiles inside a card keep their own behavior; only the free 
 triggers `tap_action` / `hold_action`. Actions use the native format (see _Actions_ below) and are
 edited with the standard action editor.
 
-All list options (rooms, modes, items, sidebar items) are edited **visually** in the card editor:
+All list options (rooms, modes, items) are edited **visually** in the card editor:
 add, remove and reorder rows, with entity / icon / color / action pickers. The YAML shape is unchanged.
 
-## Using the cards in a Sections view (no layout card)
+## Using the cards in a Sections view
 
-Every card except `glass-layout-card` can be placed directly in a native **Sections** view: add it from
-the card picker, configure it in the editor, and drag / resize it with the sections editor. The cards
-report their default and minimum size (`getGridOptions`). Use the view's `background` for the picture.
-Cards default to one full section column; header and modes to the full view width.
-Two ready-made examples:
+The cards are made for the native **Sections** view: add them from the card picker, configure them in
+the editor, and drag / resize them with the sections editor. They report default and minimum sizes
+(`getGridOptions`). Use the view's `background` for the picture. Full example:
+[`examples/sections-view.yaml`](../examples/sections-view.yaml) (`max_columns: 4`; a full-width section
+with header + modes, then one section per column).
 
-- [`examples/sections-view.yaml`](../examples/sections-view.yaml) — **same look as the mockups**:
-  `glass-layout-card` in one full-width section (`column_span: 4`, `max_columns: 4`). It carries its
-  own sidebar, header and responsive grid. A Sections view is narrower than the screen (HA menu and
-  margins), so the example lowers `breakpoints` (`tablet: 1000`, `mobile: 600`).
-- [`examples/sections-view-native.yaml`](../examples/sections-view-native.yaml) — one native card per
-  cell, each movable/resizable in the UI (no custom sidebar; layout follows HA's section columns).
+Size per card with `grid_options` (12 columns per section column, 56 px rows; `columns: full`,
+`rows: auto` are accepted):
 
-## `glass-layout-card`
-
-Full-page layout. Use it in a **panel view** (`panel: true`).
-
-| Option        | Type               | Description                                                         |
-| ------------- | ------------------ | ------------------------------------------------------------------- |
-| `background`  | string             | Image URL, e.g. `/local/glass-home/house.jpg` (gradient if omitted) |
-| `sidebar`     | object \| `false`  | Config of `glass-sidebar-card` (without `type`)                     |
-| `header`      | object \| `false`  | Config of `glass-header-card` (without `type`)                      |
-| `cards`       | list (required)    | Cards; each may have a `grid` key                                   |
-| `breakpoints` | `{tablet, mobile}` | Pixel widths (defaults 1100 / 700)                                  |
-
-`grid` (on each child card):
-
-| Key              | Default  | Description                          |
-| ---------------- | -------- | ------------------------------------ |
-| `columns`        | 24       | Columns spanned on desktop (1–24)    |
-| `tablet_columns` | =columns | Columns spanned on tablet            |
-| `mobile_columns` | 24       | Columns spanned on mobile            |
-| `hidden_on`      | `[]`     | Any of `desktop`, `tablet`, `mobile` |
-| `new_row`        | false    | Force the card to start a new row    |
-
-CSS variable `--glass-view-height` sets the page height (use `100vh` with kiosk mode).
-
-## `glass-sidebar-card`
-
-| Option              | Type   | Description                                                 |
-| ------------------- | ------ | ----------------------------------------------------------- |
-| `title`, `subtitle` | string | Brand text (default title `Home`)                           |
-| `icon`              | string | Brand icon (default `mdi:home`)                             |
-| `items` (required)  | list   | `{ name, icon, navigation_path, short_name?, pin_mobile? }` |
-| `status_entities`   | list   | Footer shows a warning if one is `unavailable`              |
-| `mobile_max_items`  | number | Items in the bottom bar (default 4); `pin_mobile` items win |
-
-`size` (`desktop`/`tablet`/`mobile`) is set by the layout card.
+```yaml
+- type: custom:glass-modes-card
+  grid_options: { columns: 30, rows: auto } # of a 4-column section (48 cells)
+```
 
 ## `glass-header-card`
 

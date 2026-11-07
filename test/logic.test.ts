@@ -1,13 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { powerDigits, toKw } from '../src/cards/energy/logic';
 import { greetingKey, weatherLook } from '../src/cards/header/logic';
-import { resolveSpans, sizeForWidth } from '../src/cards/layout/logic';
 import { allEntities, countOn, masterService } from '../src/cards/lights/logic';
 import { isModeActive } from '../src/cards/modes/logic';
 import { nextTarget } from '../src/cards/climate/logic';
 import { insecureDoors, securityView } from '../src/cards/security/logic';
 import { isSameDay, parseEventStart } from '../src/cards/quick-info/logic';
-import { isActivePath, splitMobileItems } from '../src/cards/sidebar/logic';
 
 describe('climate', () => {
   it('steps, snaps to the grid and clamps', () => {
@@ -75,25 +73,6 @@ describe('header', () => {
   });
 });
 
-describe('layout', () => {
-  it('chooses a size from the width', () => {
-    expect(sizeForWidth(1400)).toBe('desktop');
-    expect(sizeForWidth(900)).toBe('tablet');
-    expect(sizeForWidth(390)).toBe('mobile');
-    expect(sizeForWidth(900, { tablet: 1000, mobile: 950 })).toBe('mobile');
-  });
-  it('resolves and clamps column spans', () => {
-    expect(resolveSpans(undefined)).toEqual({ desktop: 24, tablet: 24, mobile: 24 });
-    expect(resolveSpans({ columns: 7, tablet_columns: 8 })).toEqual({
-      desktop: 7,
-      tablet: 8,
-      mobile: 24,
-    });
-    expect(resolveSpans({ columns: 99 }).desktop).toBe(24);
-    expect(resolveSpans({ columns: 0 }).desktop).toBe(1);
-  });
-});
-
 describe('modes', () => {
   const states = { 'input_select.mode': { state: 'Night' } };
   it('is active when the entity state equals the option', () => {
@@ -113,27 +92,5 @@ describe('quick-info', () => {
     expect(d.getHours()).toBe(11);
     expect(parseEventStart('nope')).toBeUndefined();
     expect(isSameDay(d, new Date(2026, 10, 7, 23, 0))).toBe(true);
-  });
-});
-
-describe('sidebar', () => {
-  it('matches the active path and its sub-paths', () => {
-    expect(isActivePath('/dash/lights', '/dash/lights')).toBe(true);
-    expect(isActivePath('/dash/lights/', '/dash/lights')).toBe(true);
-    expect(isActivePath('/dash/lights/sub', '/dash/lights')).toBe(true);
-    expect(isActivePath('/dash/lightsx', '/dash/lights')).toBe(false);
-  });
-  it('splits mobile items: pinned first, else the first N', () => {
-    const items: Array<{ id: number; pin_mobile?: boolean }> = [
-      { id: 1 },
-      { id: 2, pin_mobile: true },
-      { id: 3 },
-      { id: 4, pin_mobile: true },
-    ];
-    expect(splitMobileItems(items, 4).bar.map((i) => i.id)).toEqual([2, 4]);
-    expect(splitMobileItems(items, 4).more.map((i) => i.id)).toEqual([1, 3]);
-    const plain: Array<{ id: number; pin_mobile?: boolean }> = [{ id: 1 }, { id: 2 }, { id: 3 }];
-    expect(splitMobileItems(plain, 2).bar.map((i) => i.id)).toEqual([1, 2]);
-    expect(splitMobileItems(plain, 5).more).toEqual([]);
   });
 });

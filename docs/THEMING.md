@@ -20,8 +20,6 @@ with card-mod, on any ancestor of the cards.
 | `--glass-radius`         | `26px`                           | Corner radius                    |
 | `--glass-blur`           | `26px`                           | Backdrop blur                    |
 | `--glass-font`           | SF Pro / Inter / system          | Font stack                       |
-| `--glass-sidebar-bg`     | = surface                        | Sidebar background               |
-| `--glass-view-height`    | `100vh − header`                 | Height of the page area (layout) |
 
 Dark mode is automatic (`hass.themes.darkMode`); dark defaults are defined in `shared/styles.ts`.
 

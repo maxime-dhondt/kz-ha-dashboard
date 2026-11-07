@@ -81,5 +81,3 @@ export type CardElement = HTMLElement & {
   hass?: HomeAssistant;
   setConfig?(config: LovelaceCardConfig): void;
 };
-
-export type LayoutSize = 'desktop' | 'tablet' | 'mobile';

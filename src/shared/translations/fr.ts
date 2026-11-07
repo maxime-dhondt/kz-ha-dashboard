@@ -14,11 +14,6 @@ const fr: Record<string, string> = {
   'header.profile': 'Profil',
   'header.humidity': 'Humidité',
 
-  'sidebar.status_ok': 'Tous les systèmes OK',
-  'sidebar.status_problem': '{count} indisponible(s)',
-  'sidebar.more': 'Plus',
-  'sidebar.navigation': 'Navigation',
-
   'modes.home': 'Maison',
   'modes.home_sub': 'Mode maison',
   'modes.night': 'Nuit',
@@ -80,8 +75,6 @@ const fr: Record<string, string> = {
   'quick_info.next_event': 'Prochain événement',
   'quick_info.no_event': 'Aucun événement à venir',
 
-  'layout.error': 'Erreur de carte : {message}',
-
   'editor.name': 'Titre',
   'editor.entity': 'Entité',
   'editor.history_entity': "Entité d'historique (optionnel)",
@@ -107,7 +100,6 @@ const fr: Record<string, string> = {
   'editor.status_entities': "Entités d'état",
   'editor.mobile_max_items': 'Éléments max dans la barre mobile',
   'editor.background': "URL de l'image de fond",
-  'editor.sidebar': 'Config de la barre latérale (YAML)',
   'editor.header': "Config de l'en-tête (YAML)",
   'editor.cards': 'Cartes (YAML)',
   'editor.item_name': 'Nom',

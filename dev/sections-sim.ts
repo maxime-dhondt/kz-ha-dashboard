@@ -56,7 +56,7 @@ const VIEW_CSS = `
 .grid{--base-column-count:12;--row-gap:8px;--column-gap:8px;--row-height:56px;display:flex;flex-direction:column;gap:var(--row-gap)}
 .grid .container{--grid-column-count:calc(var(--base-column-count) * var(--column-span, 1));display:grid;
   grid-template-columns:repeat(var(--grid-column-count),minmax(0,1fr));grid-auto-rows:auto;row-gap:var(--row-gap);
-  column-gap:var(--column-gap);padding:0;margin:0 auto}
+  column-gap:var(--column-gap);padding:0;margin:0}
 .card{position:relative;grid-row:span var(--row-size,1);grid-column:span min(var(--column-size,1),var(--grid-column-count))}
 .card.fit-rows{height:calc((var(--row-size,1) * (var(--row-height) + var(--row-gap))) - var(--row-gap))}
 .card.full-width{grid-column:1/-1}

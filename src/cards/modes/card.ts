@@ -215,7 +215,7 @@ export class GlassModesCard extends GlassCard<ModesConfig> {
   }
 
   public getGridOptions(): GridOptions {
-    return { columns: 'full' as const, rows: 2, min_columns: 6, min_rows: 1 };
+    return { columns: 'full' as const, rows: 'auto' as const, min_columns: 6, min_rows: 1 };
   }
 }
 

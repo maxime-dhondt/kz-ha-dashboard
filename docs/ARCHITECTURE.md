@@ -18,22 +18,19 @@ passes to every card) and calling services through `hass.callService`.
 
 ## Cards
 
-| Tag                     | Role                                                   |
-| ----------------------- | ------------------------------------------------------ |
-| `glass-layout-card`     | Full page: background, sidebar, header, 24-col grid    |
-| `glass-sidebar-card`    | Navigation (panel → rail → bottom bar) + status footer |
-| `glass-header-card`     | Greeting, clock, weather pill, search, avatar          |
-| `glass-modes-card`      | House-mode shortcuts (Home / Night / Away / Eco)       |
-| `glass-climate-card`    | Temperature, target ± and history sparkline            |
-| `glass-lights-card`     | Count, master switch, room tiles                       |
-| `glass-camera-card`     | Snapshot, live badge, live stream                      |
-| `glass-security-card`   | Alarm state, doors summary, arm/disarm                 |
-| `glass-energy-card`     | Power draw and today's hourly bars                     |
-| `glass-media-card`      | Now playing, transport, volume                         |
-| `glass-quick-info-card` | State list + next calendar event                       |
+| Tag                     | Role                                             |
+| ----------------------- | ------------------------------------------------ |
+| `glass-header-card`     | Greeting, clock, weather pill, search, avatar    |
+| `glass-modes-card`      | House-mode shortcuts (Home / Night / Away / Eco) |
+| `glass-climate-card`    | Temperature, target ± and history sparkline      |
+| `glass-lights-card`     | Count, master switch, room tiles                 |
+| `glass-camera-card`     | Snapshot, live badge, live stream                |
+| `glass-security-card`   | Alarm state, doors summary, arm/disarm           |
+| `glass-energy-card`     | Power draw and today's hourly bars               |
+| `glass-media-card`      | Now playing, transport, volume                   |
+| `glass-quick-info-card` | State list + next calendar event                 |
 
-Every card except the layout can be used **standalone** in any Lovelace view. The layout card is
-only a convenience that arranges them and gives the glass page.
+Every card can be used **standalone** in any Lovelace view; the intended host is the native Sections view.
 
 ## Anatomy of a card
 
@@ -66,21 +63,13 @@ refresh timer (`refreshInterval`).
 `appearanceSection()`, `interactionsSection()`, `listSelector()` (HA `object` selector with `multiple`
 and `fields`: add / remove / reorder rows, nested entity / icon / color / action pickers).
 
-## Layout card & responsiveness
+## Sections view & responsiveness
 
-`glass-layout-card` observes its own width (`ResizeObserver`) and sets `size="desktop|tablet|mobile"`
-(defaults: tablet < 1100 px, mobile < 700 px; override with `breakpoints`). The CSS switches on that attribute:
-
-| size    | sidebar           | grid                                      |
-| ------- | ----------------- | ----------------------------------------- |
-| desktop | 240 px panel      | `grid.columns` of 24                      |
-| tablet  | 76 px icon rail   | `grid.tablet_columns` (default = desktop) |
-| mobile  | sticky bottom bar | `grid.mobile_columns` (default 24)        |
-
-Child cards are created by `_create()`: our own `custom:glass-*` types directly, any other type
-through `window.loadCardHelpers().createCardElement()`, so **native HA cards can be mixed in**.
-Children receive `hass` from the layout; a config error in one child shows an inline error tile
-instead of breaking the page.
+Placement is entirely Home Assistant's: each card reports its default / minimum size with
+`getGridOptions()` (12 columns per section column, rows of 56 px; `columns: 'full'` and `rows: 'auto'`
+are used by header and modes) and the user overrides it with `grid_options`. HA decides how many
+section columns fit (320–500 px each, at most `max_columns`), so desktop / tablet / phone layouts are
+HA's, not ours. `dev/sections-sim.ts` reproduces those rules for the local preview.
 
 The header and modes cards adapt to _their own_ width with container queries (`@container`), so they
 also work standalone.
@@ -106,7 +95,7 @@ falls back to English, then to the key. Add a language: create `translations/xx.
 ## Local preview
 
 `dev/` mocks `hass` (states, service calls that mutate states, fake history) and an `ha-icon`
-stand-in. `dev/main.ts` renders `examples/dashboard.yaml` in three frames. Nothing in `dev/` is bundled.
+stand-in. `dev/main.ts` renders `examples/sections-view.yaml` in a simulated Sections view at three screen sizes. Nothing in `dev/` is bundled.
 
 ## Decisions log
 

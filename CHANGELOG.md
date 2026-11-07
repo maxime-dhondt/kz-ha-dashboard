@@ -2,11 +2,10 @@
 
 ## Unreleased
 
-- Dev preview: simulated Sections view (`?view=sections` / `?view=sections-native`) reproducing HA's
-  column count, 12-column section grid, 56px rows and top bar/drawer (`dev/sections-sim.ts`).
-- `glass-layout-card` is now full-width in Sections (`columns: full`, `rows: auto`);
-  `examples/sections-view.yaml` hosts it (mockup look), the native-card layout moved to
-  `examples/sections-view-native.yaml`.
+- **Breaking:** only the native Sections view is supported. Removed `glass-layout-card`,
+  `glass-sidebar-card` and the panel example `examples/dashboard.yaml`.
+- Dev preview simulates HA's Sections view (`dev/sections-sim.ts`) at desktop / tablet / phone sizes.
+- Header and modes use automatic row height; `examples/sections-view.yaml` rebuilt to match the mockups.
 
 ## 0.2.1
 

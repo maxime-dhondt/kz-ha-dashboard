@@ -17,11 +17,6 @@ const en: Record<string, string> = {
   'header.profile': 'Profile',
   'header.humidity': 'Humidity',
 
-  'sidebar.status_ok': 'All systems OK',
-  'sidebar.status_problem': '{count} unavailable',
-  'sidebar.more': 'More',
-  'sidebar.navigation': 'Navigation',
-
   'modes.home': 'Home',
   'modes.home_sub': 'Home mode',
   'modes.night': 'Night',
@@ -83,8 +78,6 @@ const en: Record<string, string> = {
   'quick_info.next_event': 'Next event',
   'quick_info.no_event': 'No upcoming event',
 
-  'layout.error': 'Card error: {message}',
-
   'editor.name': 'Title',
   'editor.entity': 'Entity',
   'editor.history_entity': 'History entity (optional)',
@@ -110,7 +103,6 @@ const en: Record<string, string> = {
   'editor.status_entities': 'Status entities',
   'editor.mobile_max_items': 'Max items in mobile bar',
   'editor.background': 'Background image URL',
-  'editor.sidebar': 'Sidebar config (YAML)',
   'editor.header': 'Header config (YAML)',
   'editor.cards': 'Cards (YAML)',
   'editor.item_name': 'Name',

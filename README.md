@@ -10,11 +10,11 @@ light/dark, English & French.
 
 ## Cards
 
-`glass-layout-card` (page) · `glass-sidebar-card` · `glass-header-card` · `glass-modes-card` ·
+`glass-header-card` · `glass-modes-card` ·
 `glass-climate-card` · `glass-lights-card` · `glass-camera-card` · `glass-security-card` ·
 `glass-energy-card` · `glass-media-card` · `glass-quick-info-card`
 
-Each one works standalone in any view; the layout card assembles them into the full dashboard.
+Built for the native **Sections** view of Home Assistant: add each card from the picker, size and move it with the sections editor.
 Options: [docs/CARDS.md](docs/CARDS.md).
 
 ## Install
@@ -25,7 +25,7 @@ Manual install and store submission: [docs/PUBLISHING.md](docs/PUBLISHING.md).
 ## Set up the dashboard
 
 1. Settings → Dashboards → _Add dashboard_, open it, ⋮ → _Edit_ → ⋮ → **Raw configuration editor**.
-2. Paste [`examples/dashboard.yaml`](examples/dashboard.yaml).
+2. Paste [`examples/sections-view.yaml`](examples/sections-view.yaml).
 3. Replace the entity ids with yours (climate, lights, camera, alarm, power sensor, media player, calendar…).
 4. Optional: put a photo in `/config/www/glass-home/house.jpg` and set `background: /local/glass-home/house.jpg`.
 
