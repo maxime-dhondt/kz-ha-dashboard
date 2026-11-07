@@ -13,8 +13,6 @@ views:
     path: glass
     type: sections
     max_columns: 4
-    # Copy examples/house.jpg (or your own picture) to /config/www/glass-home/house.jpg
-    background: 80% center / cover no-repeat url('/local/glass-home/house.jpg') fixed
     sections:
       # Row 1: the whole view width (header + modes)
       - type: grid
@@ -79,11 +77,14 @@ views:
               - { type: calendar, entity: calendar.work, name: Next event }
               - { entity: cover.garage_door, name: Garage }
 
-      # Navigation: fixed to the screen edge (left panel / tablet rail / phone bottom bar); the view is
-      # shifted to make room. Use it with the kiosk-mode HACS plugin, which hides HA's own menu.
-      # Its cell stays empty, so keep it in the last section; drop it if you keep HA's menu.
+      # Invisible cards (their cells stay empty) live in the last section: the picture behind everything
+      # (/local/..., https://... or a media source such as media-source://image_upload/<id>, see
+      # Settings → Media → Image upload; for /local/ copy examples/house.jpg to /config/www/glass-home/)
+      # and the navigation sidebar.
       - type: grid
         cards:
+          - type: custom:glass-background-card
+            background: /local/glass-home/house.jpg
           - type: custom:glass-sidebar-card
             grid_options: { rows: 1 }
             title: Home

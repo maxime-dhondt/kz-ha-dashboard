@@ -1,4 +1,5 @@
 /** Every card self-registers on import. To add a card: see docs/ADD-A-CARD.md. */
+import './background/card';
 import './camera/card';
 import './climate/card';
 import './energy/card';

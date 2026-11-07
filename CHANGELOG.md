@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- New `glass-background-card`: sets the view picture from a URL, a `/local/` file or a `media-source://` id.
 - Background picture `examples/house.jpg` (copy it to `/config/www/glass-home/house.jpg`); used by the preview.
 - **Breaking:** only the native Sections view is supported. Removed `glass-layout-card` and the panel
   example `examples/dashboard.yaml`.

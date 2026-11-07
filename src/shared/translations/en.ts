@@ -107,7 +107,7 @@ const en: Record<string, string> = {
   'editor.status_entities': 'Status entities',
   'editor.mobile_max_items': 'Max items in mobile bar',
   'editor.position': 'Position (fixed to the screen edge, or inside its section)',
-  'editor.background': 'Background image URL',
+  'editor.background': 'Background (URL, /local/… or media-source://image_upload/…)',
   'editor.header': 'Header config (YAML)',
   'editor.cards': 'Cards (YAML)',
   'editor.item_name': 'Name',

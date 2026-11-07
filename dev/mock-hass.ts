@@ -158,6 +158,9 @@ export function createMockHass(
         const end = Date.parse(message.end_time as string);
         return { [id]: fakeHistory(id, start, end) } as T;
       }
+      if (message.type === 'media_source/resolve_media') {
+        return { url: '/examples/house.jpg', mime_type: 'image/jpeg' } as T;
+      }
       return {} as T;
     },
     callService: async (domain, service, data, target) => {

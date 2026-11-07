@@ -104,7 +104,7 @@ const fr: Record<string, string> = {
   'editor.status_entities': "Entités d'état",
   'editor.mobile_max_items': 'Éléments max dans la barre mobile',
   'editor.position': "Position (fixée au bord de l'écran, ou dans sa section)",
-  'editor.background': "URL de l'image de fond",
+  'editor.background': 'Fond (URL, /local/… ou media-source://image_upload/…)',
   'editor.header': "Config de l'en-tête (YAML)",
   'editor.cards': 'Cartes (YAML)',
   'editor.item_name': 'Nom',

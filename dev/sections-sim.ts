@@ -42,7 +42,7 @@ type CardEl = HTMLElement & {
 };
 
 const VIEW_CSS = `
-:host{box-sizing:border-box;--row-height:56px;--row-gap:8px;--column-gap:32px;--column-max-width:500px;--column-min-width:320px;display:block}
+:host{box-sizing:border-box;min-height:100%;--row-height:56px;--row-gap:8px;--column-gap:32px;--column-max-width:500px;--column-min-width:320px;display:block}
 :host(.narrow){--column-gap:var(--row-gap)}
 .wrapper{display:block;padding:var(--row-gap) var(--column-gap);box-sizing:content-box;margin:0 auto;
   max-width:calc(var(--column-count) * var(--column-max-width) + (var(--column-count) - 1) * var(--column-gap))}

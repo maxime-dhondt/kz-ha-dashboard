@@ -1,3 +1,4 @@
+import { isMediaSource, toCssBackground } from '../src/shared/view';
 import { isActivePath, splitMobileItems } from '../src/cards/sidebar/logic';
 import { describe, expect, it } from 'vitest';
 import { powerDigits, toKw } from '../src/cards/energy/logic';
@@ -115,5 +116,19 @@ describe('sidebar', () => {
     const plain: Array<{ id: number; pin_mobile?: boolean }> = [{ id: 1 }, { id: 2 }, { id: 3 }];
     expect(splitMobileItems(plain, 2).bar.map((i) => i.id)).toEqual([1, 2]);
     expect(splitMobileItems(plain, 5).more).toEqual([]);
+  });
+});
+
+describe('background', () => {
+  it('detects media sources', () => {
+    expect(isMediaSource('media-source://image_upload/abc')).toBe(true);
+    expect(isMediaSource('/local/a.jpg')).toBe(false);
+  });
+  it('builds a CSS background', () => {
+    expect(toCssBackground('/local/a.jpg')).toContain('url("/local/a.jpg")');
+    expect(toCssBackground('media-source://x/y', '/api/image/serve/y/original')).toContain(
+      '/api/image/serve/y/original',
+    );
+    expect(toCssBackground('center / cover url(/a.jpg)')).toBe('center / cover url(/a.jpg)');
   });
 });

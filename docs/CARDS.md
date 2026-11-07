@@ -38,6 +38,17 @@ Size per card with `grid_options` (12 columns per section column, 56 px rows; `c
   grid_options: { columns: 30, rows: auto } # of a 4-column section (48 cells)
 ```
 
+## `glass-background-card`
+
+Invisible card that paints the whole view behind the others (its cell stays empty; keep it in the last section).
+
+| Option       | Description                                                                                                                                                               |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `background` | `/local/house.jpg`, `https://…`, **`media-source://image_upload/<id>`** (Settings → Media → Image upload), or a full CSS `background` value (`80% center / cover url(…)`) |
+
+`media-source://` identifiers are resolved through Home Assistant (`media_source/resolve_media`), which the
+view's own `background` option cannot do.
+
 ## `glass-sidebar-card`
 
 | Option              | Type                         | Description                                                   |

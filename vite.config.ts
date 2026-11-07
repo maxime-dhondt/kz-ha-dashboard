@@ -7,6 +7,20 @@ const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 
 
 // Single ES module bundle: dist/glass-home.js (this is what HACS serves).
 export default defineConfig({
+  // Dev preview only: the example points at HA's /local/glass-home/ folder, serve it from examples/.
+  plugins: [
+    {
+      name: 'glass-local-alias',
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          if (req.url?.startsWith('/local/glass-home/')) {
+            req.url = req.url.replace('/local/glass-home/', '/examples/');
+          }
+          next();
+        });
+      },
+    },
+  ],
   define: { __VERSION__: JSON.stringify(pkg.version) },
   build: {
     target: 'es2021',

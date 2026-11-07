@@ -6,7 +6,7 @@ thème clair/sombre, interface en français et en anglais.
 
 ## Cartes
 
-`glass-sidebar-card` · `glass-header-card` · `glass-modes-card` ·
+`glass-background-card` · `glass-sidebar-card` · `glass-header-card` · `glass-modes-card` ·
 `glass-climate-card` · `glass-lights-card` · `glass-camera-card` · `glass-security-card` ·
 `glass-energy-card` · `glass-media-card` · `glass-quick-info-card`
 
