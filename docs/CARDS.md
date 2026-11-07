@@ -24,9 +24,12 @@ add, remove and reorder rows, with entity / icon / color / action pickers. The Y
 
 The cards are made for the native **Sections** view: add them from the card picker, configure them in
 the editor, and drag / resize them with the sections editor. They report default and minimum sizes
-(`getGridOptions`). Use the view's `background` for the picture. Full example:
-[`examples/sections-view.yaml`](../examples/sections-view.yaml) (`max_columns: 4`; a full-width section
-with header + modes, then one section per column).
+(`getGridOptions`). Use the view's `background` for the picture. Examples:
+
+- [`examples/sections-view.yaml`](../examples/sections-view.yaml): responsive (4 → 1 columns), one
+  full-width section with the sidebar as its first column and one column per card.
+- [`examples/sections-view-wide.yaml`](../examples/sections-view-wide.yaml): exact desktop proportions of the
+  mockup (36 cells); on phones the cards keep partial widths.
 
 **Width and height of each card are yours to choose**: in the sections editor (card → Layout: columns / rows)
 or with `grid_options`. A section column has 12 cells, a section can span up to `max_columns` columns.
@@ -51,19 +54,22 @@ view's own `background` option cannot do.
 
 ## `glass-sidebar-card`
 
-| Option              | Type                         | Description                                                   |
-| ------------------- | ---------------------------- | ------------------------------------------------------------- |
-| `title`, `subtitle` | string                       | Brand text (default title `Home`)                             |
-| `icon`              | string                       | Brand icon (default `mdi:home`)                               |
-| `items` (required)  | list                         | `{ name, icon, navigation_path, short_name?, pin_mobile? }`   |
-| `status_entities`   | list                         | Footer shows a warning if one is `unavailable`                |
-| `mobile_max_items`  | number                       | Items in the bottom bar (default 4); `pin_mobile` items win   |
-| `position`          | `fixed` (default) / `inline` | `fixed`: sticks to the screen edge and shifts the view        |
-| `breakpoints`       | `{tablet, mobile}`           | Width of the view (px) for the rail / bottom bar (1100 / 700) |
+| Option              | Type                         | Description                                                             |
+| ------------------- | ---------------------------- | ----------------------------------------------------------------------- |
+| `title`, `subtitle` | string                       | Brand text (default title `Home`)                                       |
+| `icon`              | string                       | Brand icon (default `mdi:home`)                                         |
+| `items` (required)  | list                         | `{ name, icon, navigation_path, short_name?, pin_mobile? }`             |
+| `status_entities`   | list                         | Footer shows a warning if one is `unavailable`                          |
+| `mobile_max_items`  | number                       | Items in the bottom bar (default 4); `pin_mobile` items win             |
+| `position`          | `inline` (default) / `fixed` | `inline`: a normal card, a column of the section; `fixed`: screen edge  |
+| `breakpoints`       | `{tablet, mobile}`           | View width (px) for the rail (fixed mode) / the bottom bar (1100 / 700) |
 
-Meant to be used with the **kiosk-mode** HACS plugin (it hides Home Assistant's own menu and top bar).
-In `fixed` mode the card draws a 240 px panel (76 px rail below `tablet`, bottom bar below `mobile`) and adds
-the matching padding to the Sections view; its cell in the section stays empty, so put it in the last section.
+**Inline** (default): the sidebar is a tall card of your Sections view; size it in the sections editor
+(`grid_options`, e.g. `{ columns: 12, rows: 14 }`). It shows an icon rail when its cell is narrow and the
+bottom bar on phones. **Fixed**: it sticks to the screen edge (240 px panel, 76 px rail, bottom bar) and
+shifts the view to make room; its cell stays empty. Combine both with `visibility` conditions as in
+`examples/sections-view.yaml` (panel from 900 px, fixed rail / bar below), and with the **kiosk-mode** HACS
+plugin to hide Home Assistant's own menu.
 
 ## `glass-header-card`
 

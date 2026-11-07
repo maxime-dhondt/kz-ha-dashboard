@@ -1,10 +1,11 @@
-# Glass Home – native "Sections" view (everything editable in the UI)
+# Glass Home – native "Sections" view (everything editable in the UI), responsive.
 #
-# Each card is a normal Lovelace card: add it from the card picker ("Glass …"), configure it in the
-# visual editor, drag it around and resize it with the sections editor (Edit dashboard → card → Layout).
-# The glass look comes from the cards themselves; the background is the view's own `background`.
-# Layout: a full-width section (header + modes) followed by one section per column (4 columns on wide
-# screens, 3 / 2 / 1 as the screen gets narrower).
+# One full-width section of up to 4 columns (12 cells per column). The sidebar is a real card of that
+# section (one column wide, tall) and the other cards flow to its right, one column each: 4 columns on
+# wide screens, 3 / 2 / 1 as the screen gets narrower. Every card's width / height is yours to change in
+# the sections editor (card → Layout) or with `grid_options` (columns = cells, rows = 56 px each).
+# Below 900 px the sidebar becomes a fixed icon rail / bottom bar (second sidebar card, shown by its `visibility`).
+# Same look with the exact desktop proportions of the mockup: sections-view-wide.yaml.
 #
 # Paste in: Edit dashboard → ⋮ → Raw configuration editor (replace the entities with yours).
 title: Home
@@ -14,84 +15,19 @@ views:
     type: sections
     max_columns: 4
     sections:
-      # Row 1: the whole view width (header + modes)
       - type: grid
         column_span: 4
         cards:
-          - type: custom:glass-header-card
-            weather_entity: weather.home
-          - type: custom:glass-modes-card
-            # 30 of the 48 cells of a 4-column section (≈ 60 % wide on large screens, full width on small ones)
-            grid_options: { columns: 30, rows: auto }
-            entity: input_select.house_mode
-            modes:
-              - { name: Home, subtitle: Home mode, icon: mdi:home, option: Home, color: blue }
-              - {
-                  name: Night,
-                  subtitle: Night mode,
-                  icon: mdi:weather-night,
-                  option: Night,
-                  color: blue-grey,
-                }
-              - {
-                  name: Away,
-                  subtitle: Away mode,
-                  icon: mdi:airplane,
-                  option: Away,
-                  color: blue-grey,
-                }
-              - { name: Eco, subtitle: Eco mode, icon: mdi:leaf, option: Eco, color: green }
-
-      # Then one column per section (cards fill the column; resize/reorder them in the UI)
-      - type: grid
-        cards:
-          - type: custom:glass-climate-card
-            entity: climate.living_room
-          - type: custom:glass-security-card
-            grid_options: { rows: 5 }
-            entity: alarm_control_panel.home
-            door_entities: [lock.front_door, cover.garage_door]
-
-      - type: grid
-        cards:
-          - type: custom:glass-lights-card
-            rooms:
-              - { name: Living Room, icon: mdi:sofa, entities: [light.living_room_main] }
-              - { name: Kitchen, icon: mdi:silverware-fork-knife, entities: [light.kitchen] }
-          - type: custom:glass-energy-card
-            grid_options: { rows: 5 }
-            entity: sensor.house_power
-
-      - type: grid
-        cards:
-          - type: custom:glass-camera-card
-            entity: camera.front_door
-            name: Front Door
-          - type: custom:glass-media-card
-            entity: media_player.living_room
-
-      - type: grid
-        cards:
-          - type: custom:glass-quick-info-card
-            items:
-              - { type: calendar, entity: calendar.work, name: Next event }
-              - { entity: cover.garage_door, name: Garage }
-
-      # Invisible cards (their cells stay empty) live in the last section: the picture behind everything
-      # (/local/..., https://... or a media source such as media-source://image_upload/<id>, see
-      # Settings → Media → Image upload; for /local/ copy examples/house.jpg to /config/www/glass-home/)
-      # and the navigation sidebar.
-      - type: grid
-        cards:
-          - type: custom:glass-background-card
-            background: /local/glass-home/house.jpg
+          # Sidebar (screens ≥ 900 px): a column of the section. Icon rail when its cell gets narrow.
           - type: custom:glass-sidebar-card
-            grid_options: { rows: 1 }
+            grid_options: { columns: 12, rows: 14 }
+            visibility:
+              - { condition: screen, media_query: '(min-width: 900px)' }
             title: Home
             subtitle: My Smart Home
             icon: mdi:home
             status_entities: [alarm_control_panel.home, camera.front_door, climate.living_room]
-            items:
+            items: &nav
               - {
                   name: Overview,
                   short_name: Home,
@@ -115,3 +51,72 @@ views:
                   pin_mobile: true,
                 }
               - { name: Settings, icon: mdi:cog, navigation_path: /config, pin_mobile: true }
+
+          - type: custom:glass-header-card
+            grid_options: { columns: 24, rows: auto }
+            weather_entity: weather.home
+
+          - type: custom:glass-modes-card
+            grid_options: { columns: 24, rows: auto }
+            entity: input_select.house_mode
+            modes:
+              - { name: Home, subtitle: Home mode, icon: mdi:home, option: Home, color: blue }
+              - {
+                  name: Night,
+                  subtitle: Night mode,
+                  icon: mdi:weather-night,
+                  option: Night,
+                  color: blue-grey,
+                }
+              - {
+                  name: Away,
+                  subtitle: Away mode,
+                  icon: mdi:airplane,
+                  option: Away,
+                  color: blue-grey,
+                }
+              - { name: Eco, subtitle: Eco mode, icon: mdi:leaf, option: Eco, color: green }
+
+          # One column (12 cells) per card
+          - type: custom:glass-climate-card
+            grid_options: { columns: 12, rows: 5 }
+            entity: climate.living_room
+          - type: custom:glass-lights-card
+            grid_options: { columns: 12, rows: 5 }
+            rooms:
+              - { name: Living Room, icon: mdi:sofa, entities: [light.living_room_main] }
+              - { name: Kitchen, icon: mdi:silverware-fork-knife, entities: [light.kitchen] }
+          - type: custom:glass-camera-card
+            grid_options: { columns: 12, rows: 5 }
+            entity: camera.front_door
+            name: Front Door
+
+          - type: custom:glass-security-card
+            grid_options: { columns: 12, rows: 5 }
+            entity: alarm_control_panel.home
+            door_entities: [lock.front_door, cover.garage_door]
+          - type: custom:glass-energy-card
+            grid_options: { columns: 12, rows: 5 }
+            entity: sensor.house_power
+          - type: custom:glass-media-card
+            grid_options: { columns: 12, rows: 5 }
+            entity: media_player.living_room
+          - type: custom:glass-quick-info-card
+            grid_options: { columns: 12, rows: 5 }
+            items:
+              - { type: calendar, entity: calendar.work, name: Next event }
+              - { entity: cover.garage_door, name: Garage }
+
+          # Same sidebar on smaller screens: icon rail on tablets, bottom bar on phones (its cell stays empty).
+          - type: custom:glass-sidebar-card
+            position: fixed
+            grid_options: { columns: 12, rows: 1 }
+            visibility:
+              - { condition: screen, media_query: '(max-width: 899px)' }
+            items: *nav
+
+          # Invisible: the picture behind everything (/local/..., https://... or a media source such as
+          # media-source://image_upload/<id>; for /local/ copy examples/house.jpg to /config/www/glass-home/).
+          - type: custom:glass-background-card
+            grid_options: { columns: 12, rows: 1 }
+            background: /local/glass-home/house.jpg

@@ -1,0 +1,123 @@
+# Glass Home – "Sections" view with the exact proportions of the desktop mockup (36 cells wide).
+# Desktop-first: on narrow screens (phones) cards keep their partial width; use sections-view.yaml for a
+# fully responsive layout.
+#
+# One full-width section of 3 columns = 36 cells. The sidebar is a real card of that section (6 cells wide,
+# tall), the rest flows to its right. Every card's width / height is yours to change in the sections
+# editor (card → Layout) or with `grid_options` (columns = cells out of 36, rows = 56 px each).
+# Below 900 px the sidebar becomes a fixed icon rail / bottom bar (second sidebar card, shown by its `visibility`).
+#
+# Paste in: Edit dashboard → ⋮ → Raw configuration editor (replace the entities with yours).
+title: Home
+views:
+  - title: Glass
+    path: glass
+    type: sections
+    max_columns: 3
+    sections:
+      - type: grid
+        column_span: 3
+        cards:
+          # Sidebar (screens ≥ 900 px): a column of the section. Icon rail when its cell gets narrow.
+          - type: custom:glass-sidebar-card
+            grid_options: { columns: 6, rows: 14 }
+            visibility:
+              - { condition: screen, media_query: '(min-width: 900px)' }
+            title: Home
+            subtitle: My Smart Home
+            icon: mdi:home
+            status_entities: [alarm_control_panel.home, camera.front_door, climate.living_room]
+            items: &nav
+              - {
+                  name: Overview,
+                  short_name: Home,
+                  icon: mdi:home,
+                  navigation_path: /dashboard-glass/glass,
+                  pin_mobile: true,
+                }
+              - { name: Lights, icon: mdi:lightbulb, navigation_path: /dashboard-glass/lights }
+              - { name: Climate, icon: mdi:thermometer, navigation_path: /dashboard-glass/climate }
+              - {
+                  name: Security,
+                  icon: mdi:shield-lock,
+                  navigation_path: /dashboard-glass/security,
+                  pin_mobile: true,
+                }
+              - { name: Energy, icon: mdi:flash, navigation_path: /dashboard-glass/energy }
+              - {
+                  name: Media,
+                  icon: mdi:play-box,
+                  navigation_path: /dashboard-glass/media,
+                  pin_mobile: true,
+                }
+              - { name: Settings, icon: mdi:cog, navigation_path: /config, pin_mobile: true }
+
+          # Same sidebar on smaller screens: icon rail on tablets, bottom bar on phones (its cell stays empty).
+          - type: custom:glass-sidebar-card
+            position: fixed
+            grid_options: { columns: 12, rows: 1 }
+            visibility:
+              - { condition: screen, media_query: '(max-width: 899px)' }
+            items: *nav
+
+          - type: custom:glass-header-card
+            grid_options: { columns: 30, rows: auto }
+            weather_entity: weather.home
+
+          - type: custom:glass-modes-card
+            grid_options: { columns: 30, rows: auto }
+            entity: input_select.house_mode
+            modes:
+              - { name: Home, subtitle: Home mode, icon: mdi:home, option: Home, color: blue }
+              - {
+                  name: Night,
+                  subtitle: Night mode,
+                  icon: mdi:weather-night,
+                  option: Night,
+                  color: blue-grey,
+                }
+              - {
+                  name: Away,
+                  subtitle: Away mode,
+                  icon: mdi:airplane,
+                  option: Away,
+                  color: blue-grey,
+                }
+              - { name: Eco, subtitle: Eco mode, icon: mdi:leaf, option: Eco, color: green }
+
+          # Row 1: three cards of 10 cells
+          - type: custom:glass-climate-card
+            grid_options: { columns: 10, rows: 5 }
+            entity: climate.living_room
+          - type: custom:glass-lights-card
+            grid_options: { columns: 10, rows: 5 }
+            rooms:
+              - { name: Living Room, icon: mdi:sofa, entities: [light.living_room_main] }
+              - { name: Kitchen, icon: mdi:silverware-fork-knife, entities: [light.kitchen] }
+          - type: custom:glass-camera-card
+            grid_options: { columns: 10, rows: 5 }
+            entity: camera.front_door
+            name: Front Door
+
+          # Row 2: four cards (8 + 8 + 8 + 6 cells)
+          - type: custom:glass-security-card
+            grid_options: { columns: 8, rows: 5 }
+            entity: alarm_control_panel.home
+            door_entities: [lock.front_door, cover.garage_door]
+          - type: custom:glass-energy-card
+            grid_options: { columns: 8, rows: 5 }
+            entity: sensor.house_power
+          - type: custom:glass-media-card
+            grid_options: { columns: 8, rows: 5 }
+            entity: media_player.living_room
+          - type: custom:glass-quick-info-card
+            grid_options: { columns: 6, rows: 5 }
+            items:
+              - { type: calendar, entity: calendar.work, name: Next event }
+              - { entity: cover.garage_door, name: Garage }
+
+          # Invisible: the picture behind everything (/local/..., https://... or a media source such as
+          # media-source://image_upload/<id>; for /local/ copy examples/house.jpg to /config/www/glass-home/).
+          - type: custom:glass-background-card
+            grid_options: { columns: 6, rows: 1 }
+            background: /local/glass-home/house.jpg

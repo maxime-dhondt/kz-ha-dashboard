@@ -17,7 +17,7 @@ distributed through HACS (category: Dashboard / `plugin`).
 Preview URL options: `?lang=fr`, `?dark=1`, `?only=desktop|tablet|phone`,
 The preview simulates HA's native **Sections** view (`dev/sections-sim.ts`: column count, 12-column section grid,
 56 px rows, menu + top bar): keep it in sync with HA.
-`examples/sections-view.yaml` is both the user-facing example **and** the preview's source of truth.
+`examples/sections-view.yaml` (with `visibility` media queries evaluated by the simulator) is both the user-facing example **and** the preview's source of truth.
 
 ## Repository map
 

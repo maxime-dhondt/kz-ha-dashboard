@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- `glass-sidebar-card`: `position: inline` (default) makes it a column of the Sections view, with icon rail in
+  narrow cells and bottom bar on phones; `fixed` keeps the screen-edge behavior. Examples rebuilt around it
+  (`sections-view.yaml` responsive, `sections-view-wide.yaml` desktop proportions); the preview supports
+  `visibility` media-query conditions.
 - New `glass-background-card`: sets the view picture from a URL, a `/local/` file or a `media-source://` id.
 - Background picture `examples/house.jpg` (copy it to `/config/www/glass-home/house.jpg`); used by the preview.
 - **Breaking:** only the native Sections view is supported. Removed `glass-layout-card` and the panel

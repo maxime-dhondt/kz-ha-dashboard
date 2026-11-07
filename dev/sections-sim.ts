@@ -15,10 +15,17 @@ import type { HomeAssistant, LovelaceCardConfig } from '../src/shared/types';
  * Keep this file in sync with the real frontend when the Sections behavior changes.
  */
 
+export interface VisibilityCondition {
+  condition: string;
+  media_query?: string;
+}
+
 export interface SectionConfig {
   type?: string;
   column_span?: number;
-  cards?: Array<LovelaceCardConfig & { grid_options?: GridOptionsConfig }>;
+  cards?: Array<
+    LovelaceCardConfig & { grid_options?: GridOptionsConfig; visibility?: VisibilityCondition[] }
+  >;
 }
 
 export interface GridOptionsConfig {
@@ -63,6 +70,16 @@ const VIEW_CSS = `
 .card > *{display:block;height:100%}
 `;
 
+/** Evaluates `screen` visibility conditions (min-width / max-width only) against the view width. */
+export function isVisible(conditions: VisibilityCondition[] | undefined, width: number): boolean {
+  return (conditions ?? []).every((c) => {
+    if (c.condition !== 'screen' || !c.media_query) return true;
+    const min = /min-width:\s*(\d+)px/.exec(c.media_query);
+    const max = /max-width:\s*(\d+)px/.exec(c.media_query);
+    return (!min || width >= Number(min[1])) && (!max || width <= Number(max[1]));
+  });
+}
+
 const clamp = (n: number, min: number, max: number): number => Math.min(max, Math.max(min, n));
 
 /** Column count exactly as the real view computes it. */
@@ -79,6 +96,7 @@ class SimSectionsView extends HTMLElement {
   private config?: SectionsViewConfig;
   private cards: CardEl[] = [];
   private observer?: ResizeObserver;
+  viewWidth = 0;
 
   setup(config: SectionsViewConfig, hass: HomeAssistant): void {
     this.config = config;
@@ -100,7 +118,8 @@ class SimSectionsView extends HTMLElement {
       content.append(sectionEl);
 
       for (const entry of section.cards ?? []) {
-        const { grid_options: override, ...cardConfig } = entry;
+        const { grid_options: override, visibility, ...cardConfig } = entry;
+        if (!isVisible(visibility, this.viewWidth)) continue;
         const tag = cardConfig.type.replace(/^custom:/, '');
         const el = document.createElement(tag) as CardEl;
         el.setConfig?.(cardConfig);
@@ -195,6 +214,7 @@ export function createSectionsFrame(
     (frame.querySelector('aside') as HTMLElement).style.paddingTop = '56px';
   }
   const sections = document.createElement('hui-sections-view') as SimSectionsView;
+  sections.viewWidth = drawer ? width - 256 : width;
   sections.setup(view, hass);
   (frame.querySelector('.scroll') as HTMLElement).append(sections);
   return { element: frame, view: sections };

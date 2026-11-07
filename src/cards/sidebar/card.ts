@@ -33,8 +33,10 @@ export interface SidebarConfig extends GlassCardConfig {
   /** Items shown in the mobile bottom bar before the "More" menu (default 4). */
   mobile_max_items?: number;
   /**
-   * `fixed` (default): the sidebar sticks to the screen edge (left panel / tablet rail / bottom bar)
-   * and the Sections view is shifted to make room. `inline`: it stays in its section cell.
+   * `inline` (default): the sidebar is a normal card, a column of the Sections view (size it with the
+   * sections editor; it switches to a rail when its cell is narrow). `fixed`: it sticks to the screen edge
+   * (left panel / rail / bottom bar) and the view is shifted to make room (kiosk dashboards).
+   * On phones (below `breakpoints.mobile`) both modes show the bottom bar.
    */
   position?: 'fixed' | 'inline';
   /** Viewport widths (px) below which the rail / the bottom bar are used (default 1100 / 700). */
@@ -43,6 +45,8 @@ export interface SidebarConfig extends GlassCardConfig {
 
 const PANEL_WIDTH = 240;
 const RAIL_WIDTH = 76;
+/** Inline mode: below this cell width (px) the sidebar shows the icon rail. */
+const RAIL_CELL = 150;
 
 @customElement('glass-sidebar-card')
 export class GlassSidebarCard extends GlassCard<SidebarConfig> {
@@ -67,12 +71,17 @@ export class GlassSidebarCard extends GlassCard<SidebarConfig> {
         width: ${unsafeCSS(RAIL_WIDTH)}px;
         box-sizing: border-box;
       }
-      :host([fixed][size='mobile']) .bar {
+      :host([size='mobile']) .bar {
         position: fixed;
         z-index: 6;
         left: 0;
         right: 0;
         bottom: 0;
+      }
+      /* Inline: a rounded glass panel filling its cell. */
+      :host(:not([fixed])) .panel {
+        border: 1px solid var(--g-border);
+        border-radius: var(--g-radius, 28px);
       }
       /* The sidebar is a full-height panel, not a rounded card. */
       .panel {
@@ -231,7 +240,7 @@ export class GlassSidebarCard extends GlassCard<SidebarConfig> {
 
   /** Computed from the viewport width (see `breakpoints`). */
   @property({ reflect: true }) public size: LayoutSize = 'desktop';
-  @property({ type: Boolean, reflect: true }) public fixed = true;
+  @property({ type: Boolean, reflect: true }) public fixed = false;
   @state() private _path = window.location.pathname;
   @state() private _moreOpen = false;
 
@@ -298,22 +307,31 @@ export class GlassSidebarCard extends GlassCard<SidebarConfig> {
     if (view && !this._observer) {
       this._observer = new ResizeObserver(() => this._onResize());
       this._observer.observe(view);
+      this._observer.observe(this);
     }
     const tablet = c?.breakpoints?.tablet ?? 1100;
     const mobile = c?.breakpoints?.mobile ?? 700;
-    this.size = w < mobile ? 'mobile' : w < tablet ? 'tablet' : 'desktop';
+    if (w < mobile) this.size = 'mobile';
+    else if (this.fixed) this.size = w < tablet ? 'tablet' : 'desktop';
+    else this.size = this.clientWidth > 0 && this.clientWidth < RAIL_CELL ? 'tablet' : 'desktop';
     this._applyOffset();
   };
 
   private _applyOffset(): void {
     const view = (this._viewHost ??= this._findView());
     if (!view) return;
-    if (!this.fixed) {
+    if (!this.fixed && this.size !== 'mobile') {
       view.style.removeProperty('padding-left');
       view.style.removeProperty('padding-bottom');
       return;
     }
-    const left = this.size === 'desktop' ? PANEL_WIDTH : this.size === 'tablet' ? RAIL_WIDTH : 0;
+    const left = !this.fixed
+      ? 0
+      : this.size === 'desktop'
+        ? PANEL_WIDTH
+        : this.size === 'tablet'
+          ? RAIL_WIDTH
+          : 0;
     view.style.setProperty('padding-left', left ? `${left}px` : '0');
     view.style.setProperty('padding-bottom', this.size === 'mobile' ? '84px' : '0');
     view.style.setProperty('box-sizing', 'border-box');
@@ -322,7 +340,7 @@ export class GlassSidebarCard extends GlassCard<SidebarConfig> {
   protected updated(changed: Map<string, unknown>): void {
     super.updated?.(changed);
     if (changed.has('_config')) {
-      this.fixed = this._config?.position !== 'inline';
+      this.fixed = this._config?.position === 'fixed';
       this._onResize();
     }
   }
@@ -456,7 +474,9 @@ export class GlassSidebarCard extends GlassCard<SidebarConfig> {
   }
 
   public getGridOptions(): GridOptions {
-    return { columns: 12, rows: 1, min_columns: 3, min_rows: 1 };
+    return this._config?.position === 'fixed'
+      ? { columns: 12, rows: 1, min_columns: 3, min_rows: 1 }
+      : { columns: 12, rows: 12, min_columns: 2, min_rows: 4 };
   }
 }
 
