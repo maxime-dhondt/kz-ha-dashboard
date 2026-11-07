@@ -12,6 +12,7 @@ import { createSectionsFrame, type SectionsViewConfig } from './sections-sim';
  *
  *   ?lang=fr   French UI        ?dark=1   dark theme
  *   ?only=desktop|tablet|phone  render a single frame
+ *   ?chrome=1  draw Home Assistant's menu + top bar (default: kiosk, i.e. hidden)
  */
 window.addEventListener('unhandledrejection', (e) =>
   console.error('UNHANDLED', (e.reason as Error)?.stack ?? e.reason),
@@ -53,6 +54,7 @@ for (const frame of frames) {
     frame.height,
     hass,
     params.has('dark'),
+    params.has('chrome'),
   );
   wrapper.append(sim.element);
   root.append(wrapper);

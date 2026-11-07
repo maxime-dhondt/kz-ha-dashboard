@@ -8,3 +8,4 @@ import './media/card';
 import './modes/card';
 import './quick-info/card';
 import './security/card';
+import './sidebar/card';

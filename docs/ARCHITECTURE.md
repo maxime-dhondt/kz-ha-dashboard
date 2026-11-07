@@ -18,17 +18,18 @@ passes to every card) and calling services through `hass.callService`.
 
 ## Cards
 
-| Tag                     | Role                                             |
-| ----------------------- | ------------------------------------------------ |
-| `glass-header-card`     | Greeting, clock, weather pill, search, avatar    |
-| `glass-modes-card`      | House-mode shortcuts (Home / Night / Away / Eco) |
-| `glass-climate-card`    | Temperature, target ± and history sparkline      |
-| `glass-lights-card`     | Count, master switch, room tiles                 |
-| `glass-camera-card`     | Snapshot, live badge, live stream                |
-| `glass-security-card`   | Alarm state, doors summary, arm/disarm           |
-| `glass-energy-card`     | Power draw and today's hourly bars               |
-| `glass-media-card`      | Now playing, transport, volume                   |
-| `glass-quick-info-card` | State list + next calendar event                 |
+| Tag                     | Role                                                 |
+| ----------------------- | ---------------------------------------------------- |
+| `glass-sidebar-card`    | Navigation: fixed panel → rail → bottom bar + status |
+| `glass-header-card`     | Greeting, clock, weather pill, search, avatar        |
+| `glass-modes-card`      | House-mode shortcuts (Home / Night / Away / Eco)     |
+| `glass-climate-card`    | Temperature, target ± and history sparkline          |
+| `glass-lights-card`     | Count, master switch, room tiles                     |
+| `glass-camera-card`     | Snapshot, live badge, live stream                    |
+| `glass-security-card`   | Alarm state, doors summary, arm/disarm               |
+| `glass-energy-card`     | Power draw and today's hourly bars                   |
+| `glass-media-card`      | Now playing, transport, volume                       |
+| `glass-quick-info-card` | State list + next calendar event                     |
 
 Every card can be used **standalone** in any Lovelace view; the intended host is the native Sections view.
 

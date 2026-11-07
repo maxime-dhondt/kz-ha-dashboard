@@ -1,3 +1,4 @@
+import { isActivePath, splitMobileItems } from '../src/cards/sidebar/logic';
 import { describe, expect, it } from 'vitest';
 import { powerDigits, toKw } from '../src/cards/energy/logic';
 import { greetingKey, weatherLook } from '../src/cards/header/logic';
@@ -92,5 +93,27 @@ describe('quick-info', () => {
     expect(d.getHours()).toBe(11);
     expect(parseEventStart('nope')).toBeUndefined();
     expect(isSameDay(d, new Date(2026, 10, 7, 23, 0))).toBe(true);
+  });
+});
+
+describe('sidebar', () => {
+  it('matches the active path and its sub-paths', () => {
+    expect(isActivePath('/dash/lights', '/dash/lights')).toBe(true);
+    expect(isActivePath('/dash/lights/', '/dash/lights')).toBe(true);
+    expect(isActivePath('/dash/lights/sub', '/dash/lights')).toBe(true);
+    expect(isActivePath('/dash/lightsx', '/dash/lights')).toBe(false);
+  });
+  it('splits mobile items: pinned first, else the first N', () => {
+    const items: Array<{ id: number; pin_mobile?: boolean }> = [
+      { id: 1 },
+      { id: 2, pin_mobile: true },
+      { id: 3 },
+      { id: 4, pin_mobile: true },
+    ];
+    expect(splitMobileItems(items, 4).bar.map((i) => i.id)).toEqual([2, 4]);
+    expect(splitMobileItems(items, 4).more.map((i) => i.id)).toEqual([1, 3]);
+    const plain: Array<{ id: number; pin_mobile?: boolean }> = [{ id: 1 }, { id: 2 }, { id: 3 }];
+    expect(splitMobileItems(plain, 2).bar.map((i) => i.id)).toEqual([1, 2]);
+    expect(splitMobileItems(plain, 5).more).toEqual([]);
   });
 });

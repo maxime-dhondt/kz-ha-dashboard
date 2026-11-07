@@ -28,6 +28,8 @@ the editor, and drag / resize them with the sections editor. They report default
 [`examples/sections-view.yaml`](../examples/sections-view.yaml) (`max_columns: 4`; a full-width section
 with header + modes, then one section per column).
 
+**Width and height of each card are yours to choose**: in the sections editor (card → Layout: columns / rows)
+or with `grid_options`. A section column has 12 cells, a section can span up to `max_columns` columns.
 Size per card with `grid_options` (12 columns per section column, 56 px rows; `columns: full`,
 `rows: auto` are accepted):
 
@@ -35,6 +37,22 @@ Size per card with `grid_options` (12 columns per section column, 56 px rows; `c
 - type: custom:glass-modes-card
   grid_options: { columns: 30, rows: auto } # of a 4-column section (48 cells)
 ```
+
+## `glass-sidebar-card`
+
+| Option              | Type                         | Description                                                   |
+| ------------------- | ---------------------------- | ------------------------------------------------------------- |
+| `title`, `subtitle` | string                       | Brand text (default title `Home`)                             |
+| `icon`              | string                       | Brand icon (default `mdi:home`)                               |
+| `items` (required)  | list                         | `{ name, icon, navigation_path, short_name?, pin_mobile? }`   |
+| `status_entities`   | list                         | Footer shows a warning if one is `unavailable`                |
+| `mobile_max_items`  | number                       | Items in the bottom bar (default 4); `pin_mobile` items win   |
+| `position`          | `fixed` (default) / `inline` | `fixed`: sticks to the screen edge and shifts the view        |
+| `breakpoints`       | `{tablet, mobile}`           | Width of the view (px) for the rail / bottom bar (1100 / 700) |
+
+Meant to be used with the **kiosk-mode** HACS plugin (it hides Home Assistant's own menu and top bar).
+In `fixed` mode the card draws a 240 px panel (76 px rail below `tablet`, bottom bar below `mobile`) and adds
+the matching padding to the Sections view; its cell in the section stays empty, so put it in the last section.
 
 ## `glass-header-card`
 

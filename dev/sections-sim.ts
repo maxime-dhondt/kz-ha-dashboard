@@ -42,7 +42,7 @@ type CardEl = HTMLElement & {
 };
 
 const VIEW_CSS = `
-:host{--row-height:56px;--row-gap:8px;--column-gap:32px;--column-max-width:500px;--column-min-width:320px;display:block}
+:host{box-sizing:border-box;--row-height:56px;--row-gap:8px;--column-gap:32px;--column-max-width:500px;--column-min-width:320px;display:block}
 :host(.narrow){--column-gap:var(--row-gap)}
 .wrapper{display:block;padding:var(--row-gap) var(--column-gap);box-sizing:content-box;margin:0 auto;
   max-width:calc(var(--column-count) * var(--column-max-width) + (var(--column-count) - 1) * var(--column-gap))}
@@ -154,7 +154,7 @@ class SimSectionsView extends HTMLElement {
   }
 }
 
-customElements.define('sim-sections-view', SimSectionsView);
+customElements.define('hui-sections-view', SimSectionsView);
 
 const DRAWER_ITEMS = ['Overview', 'Map', 'Energy', 'Logbook', 'History', 'Media'];
 
@@ -165,9 +165,10 @@ export function createSectionsFrame(
   height: number,
   hass: HomeAssistant,
   dark: boolean,
+  chrome = false,
 ): { element: HTMLElement; view: SimSectionsView } {
   const frame = document.createElement('div');
-  const drawer = width >= 870;
+  const drawer = chrome && width >= 870;
   const bg = dark ? '#111111' : '#fafafa';
   const fg = dark ? '#e1e1e1' : '#212121';
   const bar = dark ? '#1c1c1c' : '#03a9f4';
@@ -175,7 +176,7 @@ export function createSectionsFrame(
     view.background && !view.background.includes('/local/')
       ? view.background
       : 'center / cover no-repeat linear-gradient(165deg,#aebdee 0%,#cdc6ea 45%,#efd8cf 100%)';
-  frame.style.cssText = `display:flex;width:${width}px;height:${height}px;overflow:hidden;background:${bg};color:${fg};font:14px system-ui,sans-serif;`;
+  frame.style.cssText = `display:flex;width:${width}px;height:${height}px;overflow:hidden;transform:translateZ(0);background:${bg};color:${fg};font:14px system-ui,sans-serif;`;
   frame.innerHTML = `
     ${
       drawer
@@ -185,14 +186,14 @@ export function createSectionsFrame(
         : ''
     }
     <div style="flex:1;min-width:0;display:flex;flex-direction:column;position:relative">
-      <header style="flex:none;height:56px;display:flex;align-items:center;padding:0 16px;background:${bar};color:#fff;font-size:20px;${drawer ? 'margin-top:0' : ''}">${view.title ?? 'Glass'}</header>
+      ${chrome ? `<header style="flex:none;height:56px;display:flex;align-items:center;padding:0 16px;background:${bar};color:#fff;font-size:20px;${drawer ? 'margin-top:0' : ''}">${view.title ?? 'Glass'}</header>` : ''}
       <div class="scroll" style="flex:1;overflow:auto;background:${viewBg}"></div>
     </div>`;
   if (drawer) {
     // drawer overlaps the top bar area in HA; keep the bar only above the content
     (frame.querySelector('aside') as HTMLElement).style.paddingTop = '56px';
   }
-  const sections = document.createElement('sim-sections-view') as SimSectionsView;
+  const sections = document.createElement('hui-sections-view') as SimSectionsView;
   sections.setup(view, hass);
   (frame.querySelector('.scroll') as HTMLElement).append(sections);
   return { element: frame, view: sections };

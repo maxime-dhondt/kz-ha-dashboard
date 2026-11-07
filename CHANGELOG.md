@@ -2,8 +2,10 @@
 
 ## Unreleased
 
-- **Breaking:** only the native Sections view is supported. Removed `glass-layout-card`,
-  `glass-sidebar-card` and the panel example `examples/dashboard.yaml`.
+- **Breaking:** only the native Sections view is supported. Removed `glass-layout-card` and the panel
+  example `examples/dashboard.yaml`.
+- `glass-sidebar-card` is back and works standalone in Sections: fixed panel / rail / bottom bar sized from
+  the view width, `position: inline` to keep it in its cell.
 - Dev preview simulates HA's Sections view (`dev/sections-sim.ts`) at desktop / tablet / phone sizes.
 - Header and modes use automatic row height; `examples/sections-view.yaml` rebuilt to match the mockups.
 

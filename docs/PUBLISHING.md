@@ -36,3 +36,9 @@ Requirements (checked by the `hacs/action` CI job):
 
 Copy `glass-home.js` to `/config/www/glass-home/` and add the resource
 `/local/glass-home/glass-home.js` (type **JavaScript module**) in Settings → Dashboards → Resources.
+
+## Hiding the HA sidebar / header
+
+Cards cannot hide Home Assistant's own chrome. Install the HACS plugin **kiosk-mode** and add
+`kiosk_mode: { hide_sidebar: true, hide_header: true }` to the dashboard config; the
+`glass-sidebar-card` then provides the navigation.

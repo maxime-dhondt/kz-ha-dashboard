@@ -3,6 +3,10 @@
  * Rule: every key added here MUST also be added to fr.ts (enforced by test/i18n.test.ts).
  */
 const en: Record<string, string> = {
+  'sidebar.status_ok': 'All systems OK',
+  'sidebar.status_problem': '{count} unavailable',
+  'sidebar.more': 'More',
+  'sidebar.navigation': 'Navigation',
   'common.entity_not_found': 'Entity not found: {entity}',
   'common.unavailable': 'Unavailable',
 
@@ -102,6 +106,7 @@ const en: Record<string, string> = {
   'editor.icon': 'Icon',
   'editor.status_entities': 'Status entities',
   'editor.mobile_max_items': 'Max items in mobile bar',
+  'editor.position': 'Position (fixed to the screen edge, or inside its section)',
   'editor.background': 'Background image URL',
   'editor.header': 'Header config (YAML)',
   'editor.cards': 'Cards (YAML)',

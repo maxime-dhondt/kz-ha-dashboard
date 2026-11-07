@@ -78,7 +78,9 @@ The reference design (mockups) is described in `docs/DESIGN.md`.
 
 ## Known limitations / open points
 
-- The only supported layout is the native Sections view; there is no custom sidebar (HA's menu is used).
+- The only supported layout is the native Sections view. `glass-sidebar-card` (position `fixed`) is best effort: it finds
+  the enclosing `hui-sections-view` and sets its padding; the preview does this on `dev/sections-sim.ts`' view
+  (`?chrome=1` shows HA's menu/top bar, default is kiosk).
 - `search_action` default emulates the quick-bar shortcut (`e`); it is best effort.
 - Visual editors rely on `ha-form` selectors (`object` with `multiple`/`fields`, `ui_action`, `ui_color`, `navigation`): they
   need a recent Home Assistant and cannot be exercised by the local preview (no `ha-form` there).

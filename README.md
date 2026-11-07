@@ -10,7 +10,7 @@ light/dark, English & French.
 
 ## Cards
 
-`glass-header-card` · `glass-modes-card` ·
+`glass-sidebar-card` · `glass-header-card` · `glass-modes-card` ·
 `glass-climate-card` · `glass-lights-card` · `glass-camera-card` · `glass-security-card` ·
 `glass-energy-card` · `glass-media-card` · `glass-quick-info-card`
 

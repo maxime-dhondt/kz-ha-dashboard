@@ -1,5 +1,9 @@
 /** Chaînes françaises. Chaque clé de en.ts doit exister ici (test/i18n.test.ts). */
 const fr: Record<string, string> = {
+  'sidebar.status_ok': 'Tous les systèmes OK',
+  'sidebar.status_problem': '{count} indisponible(s)',
+  'sidebar.more': 'Plus',
+  'sidebar.navigation': 'Navigation',
   'common.entity_not_found': 'Entité introuvable : {entity}',
   'common.unavailable': 'Indisponible',
 
@@ -99,6 +103,7 @@ const fr: Record<string, string> = {
   'editor.icon': 'Icône',
   'editor.status_entities': "Entités d'état",
   'editor.mobile_max_items': 'Éléments max dans la barre mobile',
+  'editor.position': "Position (fixée au bord de l'écran, ou dans sa section)",
   'editor.background': "URL de l'image de fond",
   'editor.header': "Config de l'en-tête (YAML)",
   'editor.cards': 'Cartes (YAML)',
