@@ -1,41 +1,32 @@
-# Entity mapping
+# Reference-led responsive dashboard
 
-The IDs below are starter examples only. Replace them with IDs from **Developer Tools → States** in your own Home Assistant instance.
+The dashboard is implemented with native Home Assistant Lovelace cards and HACS frontend cards. Home Assistant remains the state store and service-call authority.
 
-| Dashboard function | Example entity |
-|---|---|
-| Living room temperature | `sensor.living_room_temperature` |
-| Main thermostat | `climate.living_room` |
-| Bedroom light | `light.bedroom` |
-| Living room light | `light.living_room` |
-| Air conditioner switch | `switch.air_conditioner` |
-| Television | `media_player.living_room_tv` |
-| Robot vacuum | `vacuum.robot_vacuum` |
-| Energy consumption | `sensor.energy_consumption` |
-| Home speaker | `media_player.home_speaker` |
-| Weather | `weather.home` |
-| Front door camera | `camera.front_door` |
-| Living room camera | `camera.living_room` |
-| Alarm panel | `alarm_control_panel.home` |
-| Bathroom light | `light.bathroom` |
-| Office light | `light.office` |
-| Office temperature | `sensor.office_temperature` |
+## Visual composition
+- Glass-like teal cards with translucent backgrounds and soft blur.
+- Room selector chips across the top.
+- Navigation chip rail on wide screens; responsive horizontal dock on phones.
+- Native thermostat card for the circular climate dial and HVAC controls.
+- Mushroom light card with real brightness and color-temperature controls.
+- Media controls, live camera, energy history graph, weather and device toggles.
 
-## Mapping process
+## Responsive behavior
+- Desktop: 12-column grid with a narrow left navigation rail.
+- Tablet: six-column grid; navigation rail moves to its own row.
+- Phone: two-column grid; thermostat, lighting, media and camera span the width; device controls use compact two-column tiles.
 
-1. Open **Developer Tools → States**.
-2. Search for the device or sensor.
-3. Copy its exact entity ID.
-4. Replace the matching example ID in `dashboards/kz-home.yaml`.
-5. Save and refresh the YAML dashboard.
+## Real Home Assistant integration
+All entity IDs are configured in `dashboards/kz-home.yaml`. Replace examples with your entity IDs. Cards read live state from Home Assistant and call native entity services through their built-in actions. No access token or external API is used.
 
-## Entity behavior
+## Entity mapping
+- `climate.living_room`: thermostat and HVAC mode control.
+- `light.bedroom`, `light.living_room`, `light.smart_bulb`: brightness and supported color temperature.
+- `switch.air_conditioner`: toggle.
+- `media_player.home_speaker`: playback and volume.
+- `media_player.living_room_tv`: more-info controls.
+- `vacuum.robot_vacuum`: more-info controls.
+- `camera.front_door`: live camera stream.
+- `sensor.energy_consumption`: historical energy graph (requires recorder history).
+- `weather.home`: forecast.
 
-- Light cards call Home Assistant's light services and expose brightness/color-temperature controls where supported.
-- Climate cards use the climate entity's supported HVAC modes and temperature range.
-- Media cards call the media-player entity's supported playback and volume services.
-- Camera cards display the camera entity's stream.
-- Energy graphs expect a numeric sensor with a useful history. For meaningful energy statistics, configure long-term statistics and compatible units/device classes on the source sensor.
-- Alarm controls require a compatible alarm-control-panel integration.
-
-Do not put access tokens, passwords, webhook secrets, or other credentials in dashboard YAML.
+Entity IDs are examples; verify each one under Developer Tools → States.
