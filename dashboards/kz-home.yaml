@@ -157,13 +157,6 @@ views:
         entity: climate.living_room
         name: Room Temperature
         show_current_as_primary: true
-        features:
-          - type: climate-hvac-modes
-            hvac_modes:
-              - heat
-              - cool
-              - auto
-              - "off"
         view_layout:
           grid-area: climate
 
