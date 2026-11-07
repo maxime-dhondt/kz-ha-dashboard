@@ -161,16 +161,54 @@ views:
           grid-area: climate
 
       # Mushroom controls call light.turn_on / light.turn_off and expose brightness.
-      - type: custom:mushroom-light-card
-        entity: light.bedroom
-        name: Bedroom Light
-        icon: mdi:ceiling-light
-        use_light_color: true
-        show_brightness_control: true
-        show_color_temp_control: true
-        collapsible_controls: false
-        tap_action:
-          action: toggle
+      - type: vertical-stack
+        cards:
+          # Circular brightness ring reflects the real light.bedroom brightness attribute.
+          - type: custom:button-card
+            entity: light.bedroom
+            name: Bedroom Light
+            show_icon: false
+            show_state: true
+            custom_fields:
+              ring: |
+                [[[
+                  const brightness = entity?.attributes?.brightness ?? 0;
+                  const pct = Math.round(brightness / 255 * 100);
+                  const radius = 46;
+                  const circumference = 2 * Math.PI * radius;
+                  const offset = circumference * (1 - pct / 100);
+                  return `<div style="position:relative;width:116px;height:116px;margin:auto">
+                    <svg viewBox="0 0 116 116" style="width:100%;height:100%">
+                      <circle cx="58" cy="58" r="${radius}" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="8"/>
+                      <circle cx="58" cy="58" r="${radius}" fill="none" stroke="#2788f5" stroke-width="8" stroke-linecap="round"
+                        stroke-dasharray="${circumference}" stroke-dashoffset="${offset}" transform="rotate(-90 58 58)"/>
+                    </svg>
+                    <span style="position:absolute;inset:0;display:grid;place-items:center;font-size:24px;font-weight:650">${pct}%</span>
+                  </div>`;
+                ]]]
+            styles:
+              card:
+                - background: transparent
+                - box-shadow: none
+                - border: none
+                - padding: 8px
+              name:
+                - font-size: 16px
+                - font-weight: 600
+              state:
+                - color: var(--secondary-text-color)
+              custom_fields:
+                ring:
+                  - justify-self: center
+            tap_action:
+              action: more-info
+          - type: custom:mushroom-light-card
+            entity: light.bedroom
+            name: Brightness
+            show_brightness_control: true
+            show_color_temp_control: true
+            use_light_color: true
+            collapsible_controls: false
         view_layout:
           grid-area: light
 
