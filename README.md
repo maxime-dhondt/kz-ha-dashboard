@@ -13,4 +13,4 @@ Apple-inspired, glassmorphism Home Assistant Lovelace dashboard based on the sup
 ## Install
 See [docs/installation.md](docs/installation.md). Replace the example entity IDs in [dashboards/kz-home.yaml](dashboards/kz-home.yaml) with IDs from your Home Assistant instance.
 
-Required HACS frontend cards: Mushroom, layout-card, card-mod and mini-graph-card.
+Required HACS frontend cards: Mushroom, button-card, layout-card, card-mod and mini-graph-card.
