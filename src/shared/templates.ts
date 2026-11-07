@@ -21,6 +21,10 @@ export function cardHead(
 /** Shown when a configured entity does not exist in the HA instance. */
 export function missingEntity(hass: HomeAssistant | undefined, entityId: string): TemplateResult {
   return html`<div class="glass">
-    <div class="error">${localize(hass, 'common.entity_not_found', { entity: entityId })}</div>
+    <div class="missing">
+      <ha-icon icon="mdi:help-circle-outline"></ha-icon>
+      <span>${localize(hass, 'common.entity_not_found')}</span>
+      <code title=${entityId}>${entityId}</code>
+    </div>
   </div>`;
 }

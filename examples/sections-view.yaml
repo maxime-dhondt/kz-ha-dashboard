@@ -4,7 +4,7 @@
 # section (one column wide, tall) and the other cards flow to its right, one column each: 4 columns on
 # wide screens, 3 / 2 / 1 as the screen gets narrower. Every card's width / height is yours to change in
 # the sections editor (card → Layout) or with `grid_options` (columns = cells, rows = 56 px each).
-# Below 900 px the sidebar becomes a fixed icon rail / bottom bar (second sidebar card, shown by its `visibility`).
+# Below 1700 px the sidebar becomes a fixed icon rail / bottom bar (second sidebar card, shown by its `visibility`).
 # Same look with the exact desktop proportions of the mockup: sections-view-wide.yaml.
 #
 # Paste in: Edit dashboard → ⋮ → Raw configuration editor (replace the entities with yours).
@@ -18,11 +18,11 @@ views:
       - type: grid
         column_span: 4
         cards:
-          # Sidebar (screens ≥ 900 px): a column of the section. Icon rail when its cell gets narrow.
+          # Sidebar (screens ≥ 1700 px): a column of the section. Icon rail when its cell gets narrow.
           - type: custom:glass-sidebar-card
             grid_options: { columns: 12, rows: 14 }
             visibility:
-              - { condition: screen, media_query: '(min-width: 900px)' }
+              - { condition: screen, media_query: '(min-width: 1700px)' }
             title: Home
             subtitle: My Smart Home
             icon: mdi:home
@@ -53,11 +53,11 @@ views:
               - { name: Settings, icon: mdi:cog, navigation_path: /config, pin_mobile: true }
 
           - type: custom:glass-header-card
-            grid_options: { columns: 24, rows: auto }
+            grid_options: { columns: 36, rows: auto }
             weather_entity: weather.home
 
           - type: custom:glass-modes-card
-            grid_options: { columns: 24, rows: auto }
+            grid_options: { columns: 36, rows: auto }
             entity: input_select.house_mode
             modes:
               - { name: Home, subtitle: Home mode, icon: mdi:home, option: Home, color: blue }
@@ -112,7 +112,7 @@ views:
             position: fixed
             grid_options: { columns: 12, rows: 1 }
             visibility:
-              - { condition: screen, media_query: '(max-width: 899px)' }
+              - { condition: screen, media_query: '(max-width: 1699px)' }
             items: *nav
 
           # Invisible: the picture behind everything (/local/..., https://... or a media source such as

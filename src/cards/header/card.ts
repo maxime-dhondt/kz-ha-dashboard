@@ -52,6 +52,10 @@ export class GlassHeaderCard extends GlassCard<HeaderConfig> {
         grid-area: greeting;
         min-width: 0;
       }
+      :host([dark]) h1,
+      :host([dark]) .subtitle {
+        text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
+      }
       h1 {
         margin: 0;
         font-size: 38px;

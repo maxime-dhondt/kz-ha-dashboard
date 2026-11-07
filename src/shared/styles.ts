@@ -36,12 +36,14 @@ export const tokens = css`
   }
 
   :host([dark]) {
+    --g-accent: var(--glass-accent, #5c9dff);
+    --g-slate: var(--glass-slate, #b4bdd6);
     --g-text: var(--glass-text, #f3f6ff);
-    --g-text-2: var(--glass-text-secondary, #a4aecb);
-    --g-surface: var(--glass-surface, rgba(28, 34, 58, 0.58));
-    --g-chip: var(--glass-chip, rgba(255, 255, 255, 0.09));
+    --g-text-2: var(--glass-text-secondary, #cdd5ee);
+    --g-surface: var(--glass-surface, rgba(30, 36, 60, 0.4));
+    --g-chip: var(--glass-chip, rgba(255, 255, 255, 0.14));
     --g-track: var(--glass-track, rgba(190, 200, 235, 0.25));
-    --g-border: var(--glass-border, rgba(255, 255, 255, 0.14));
+    --g-border: var(--glass-border, rgba(255, 255, 255, 0.22));
     --g-shadow: var(--glass-shadow, 0 8px 30px rgba(0, 0, 0, 0.35));
   }
 `;
@@ -138,5 +140,29 @@ export const glass = css`
     text-align: center;
     font-size: 13px;
     color: var(--g-red);
+  }
+
+  /* Placeholder shown when a configured entity does not exist. */
+  .missing {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    text-align: center;
+    color: var(--g-text-2);
+    font-size: 13px;
+    --mdc-icon-size: 30px;
+  }
+  .missing code {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--g-chip);
+    font-size: 12px;
   }
 `;

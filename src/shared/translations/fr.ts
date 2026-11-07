@@ -4,7 +4,7 @@ const fr: Record<string, string> = {
   'sidebar.status_problem': '{count} indisponible(s)',
   'sidebar.more': 'Plus',
   'sidebar.navigation': 'Navigation',
-  'common.entity_not_found': 'Entité introuvable : {entity}',
+  'common.entity_not_found': 'Entité introuvable',
   'common.unavailable': 'Indisponible',
 
   'greeting.morning': 'Bonjour',

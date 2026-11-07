@@ -12,6 +12,7 @@ import { createSectionsFrame, type SectionsViewConfig } from './sections-sim';
  *
  *   ?lang=fr   French UI        ?dark=1   dark theme
  *   ?only=desktop|tablet|phone  render a single frame
+ *   ?width=1850&height=900  override the size of the single frame selected with `only`
  *   ?chrome=1  draw Home Assistant's menu + top bar (default: kiosk, i.e. hidden)
  */
 window.addEventListener('unhandledrejection', (e) =>
@@ -43,6 +44,10 @@ const viewConfig = (): SectionsViewConfig =>
 
 for (const frame of frames) {
   if (only && only !== frame.id) continue;
+  if (only) {
+    frame.width = Number(params.get('width')) || frame.width;
+    frame.height = Number(params.get('height')) || frame.height;
+  }
   const wrapper = document.createElement('section');
   wrapper.className = `frame ${frame.id}`;
   wrapper.style.width = `${frame.width}px`;

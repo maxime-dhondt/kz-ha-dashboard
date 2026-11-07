@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Display polish from a real dark-theme render: more translucent dark glass, lighter accent/slate and header text
+  shadow in dark mode, compact "entity not found" placeholder, header/modes span the full content width,
+  inline sidebar from 1700 px (fixed rail / bar below). Preview: `?width=` / `?height=` for the single frame.
 - `glass-sidebar-card`: `position: inline` (default) makes it a column of the Sections view, with icon rail in
   narrow cells and bottom bar on phones; `fixed` keeps the screen-edge behavior. Examples rebuilt around it
   (`sections-view.yaml` responsive, `sections-view-wide.yaml` desktop proportions); the preview supports

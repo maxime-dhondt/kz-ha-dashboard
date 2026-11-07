@@ -7,7 +7,7 @@ const en: Record<string, string> = {
   'sidebar.status_problem': '{count} unavailable',
   'sidebar.more': 'More',
   'sidebar.navigation': 'Navigation',
-  'common.entity_not_found': 'Entity not found: {entity}',
+  'common.entity_not_found': 'Entity not found',
   'common.unavailable': 'Unavailable',
 
   'greeting.morning': 'Good morning',
