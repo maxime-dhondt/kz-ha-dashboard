@@ -1,38 +1,34 @@
 Apple Glass:
-  card-mod-theme: Apple Glass
-  card-mod-card: |
-    ha-card {
-      background: rgba(17, 43, 45, 0.72);
-      backdrop-filter: blur(22px) saturate(135%);
-      -webkit-backdrop-filter: blur(22px) saturate(135%);
-      border: 1px solid rgba(220, 245, 240, 0.14);
-      border-radius: 22px;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.20);
-      overflow: hidden;
-    }
-  # Dark teal glassmorphism palette inspired by the supplied dashboard reference.
   modes:
     dark:
-      primary-color: "#2587F5"
-      accent-color: "#2587F5"
+      primary-color: "#2788F5"
+      accent-color: "#2788F5"
       primary-background-color: "#101F20"
       secondary-background-color: "rgba(20, 48, 49, 0.78)"
-      card-background-color: "rgba(17, 43, 45, 0.76)"
-      ha-card-background: "rgba(17, 43, 45, 0.76)"
+      card-background-color: "rgba(17, 43, 45, 0.72)"
       primary-text-color: "#F5F8F7"
       secondary-text-color: "#A9B9B7"
-      disabled-text-color: "#748481"
       divider-color: "rgba(255,255,255,0.10)"
       app-header-background-color: "rgba(12, 30, 31, 0.82)"
       app-header-text-color: "#F5F8F7"
       sidebar-background-color: "rgba(12, 30, 31, 0.88)"
       state-icon-color: "#B7C9C6"
-      state-icon-active-color: "#2587F5"
-      switch-checked-color: "#2587F5"
+      state-icon-active-color: "#2788F5"
+      switch-checked-color: "#2788F5"
       switch-checked-button-color: "#FFFFFF"
-      switch-unchecked-button-color: "#B7C1BF"
       ha-card-border-radius: "22px"
-      ha-card-box-shadow: "0 12px 36px rgba(0,0,0,0.18)"
+      ha-card-box-shadow: "0 12px 36px rgba(0,0,0,0.20)"
       mush-card-primary-font-weight: "600"
       mush-chip-border-radius: "999px"
       mush-control-border-radius: "999px"
+      card-mod-theme: Apple Glass
+      card-mod-card: |
+        ha-card {
+          background: rgba(17, 43, 45, 0.68);
+          backdrop-filter: blur(22px) saturate(140%);
+          -webkit-backdrop-filter: blur(22px) saturate(140%);
+          border: 1px solid rgba(220, 245, 240, 0.14);
+          border-radius: 22px;
+          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.20);
+          overflow: hidden;
+        }
