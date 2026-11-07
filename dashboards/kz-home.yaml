@@ -7,19 +7,19 @@ views:
     theme: Apple Glass
     background: center / cover no-repeat fixed url("/local/kz-ha-dashboard/background.jpg")
     layout:
-      grid-template-columns: repeat(12, minmax(0, 1fr))
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr))
       grid-template-rows: auto
       grid-gap: 14px
       padding: 24px
       mediaquery:
         "(max-width: 1100px)":
-          grid-template-columns: repeat(6, minmax(0, 1fr))
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr))
           grid-gap: 12px
           padding: 16px
         "(max-width: 700px)":
-          grid-template-columns: repeat(2, minmax(0, 1fr))
-          grid-gap: 10px
-          padding: 10px
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr))
+          grid-gap: 8px
+          padding: 8px
     cards:
       - type: custom:mushroom-title-card
         title: "Welcome home"
@@ -67,8 +67,7 @@ views:
           action: more-info
         fill_container: true
         view_layout:
-          grid-column: 1 / span 4
-          grid-row: span 2
+          grid-column: auto
 
       - type: custom:mushroom-climate-card
         entity: climate.living_room
@@ -81,8 +80,7 @@ views:
           - "off"
         collapsible_controls: false
         view_layout:
-          grid-column: 5 / span 4
-          grid-row: span 2
+          grid-column: auto
 
       - type: custom:mushroom-light-card
         entity: light.bedroom
@@ -92,8 +90,7 @@ views:
         use_light_color: true
         collapsible_controls: false
         view_layout:
-          grid-column: 9 / span 4
-          grid-row: span 2
+          grid-column: auto
 
       - type: custom:mushroom-light-card
         entity: light.living_room
@@ -101,7 +98,7 @@ views:
         show_brightness_control: true
         use_light_color: true
         view_layout:
-          grid-column: 1 / span 3
+          grid-column: auto
 
       - type: custom:mushroom-entity-card
         entity: switch.air_conditioner
@@ -110,7 +107,7 @@ views:
         tap_action:
           action: toggle
         view_layout:
-          grid-column: 4 / span 3
+          grid-column: auto
 
       - type: custom:mushroom-entity-card
         entity: media_player.living_room_tv
@@ -119,7 +116,7 @@ views:
         tap_action:
           action: more-info
         view_layout:
-          grid-column: 7 / span 3
+          grid-column: auto
 
       - type: custom:mushroom-entity-card
         entity: vacuum.robot_vacuum
@@ -128,7 +125,7 @@ views:
         tap_action:
           action: more-info
         view_layout:
-          grid-column: 10 / span 3
+          grid-column: auto
 
       - type: custom:mini-graph-card
         name: Energy (kWh)
@@ -144,7 +141,7 @@ views:
           legend: false
           extrema: true
         view_layout:
-          grid-column: 1 / span 6
+          grid-column: auto
 
       - type: custom:mushroom-media-player-card
         entity: media_player.home_speaker
@@ -159,14 +156,14 @@ views:
           - play_pause_stop
           - next
         view_layout:
-          grid-column: 7 / span 3
+          grid-column: auto
 
       - type: weather-forecast
         entity: weather.home
         name: Weather
         forecast_type: daily
         view_layout:
-          grid-column: 10 / span 3
+          grid-column: auto
 
       - type: picture-entity
         entity: camera.front_door
@@ -175,7 +172,7 @@ views:
         show_state: false
         show_name: true
         view_layout:
-          grid-column: 1 / span 6
+          grid-column: auto
 
       - type: custom:mushroom-alarm-control-panel-card
         entity: alarm_control_panel.home
@@ -186,7 +183,7 @@ views:
           - armed_night
           - disarmed
         view_layout:
-          grid-column: 7 / span 6
+          grid-column: auto
 
   - title: Living Room
     path: living-room
